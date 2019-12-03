@@ -8,7 +8,7 @@
 
 ## 교재 및 강의
 * 교재
-	* [스프링 입문을 위한 자바 객체지향의 원리와 이해](./oop_for_spring_jmkim)
+	* [스프링 입문을 위한 자바 객체지향의 원리와 이해](./book/oop_for_spring_jmkim)
 
 * 강의
 	* [예제로 배우는 스프링 입문](https://github.com/nara1030/spring-basic/blob/master/lecture/spring_basic_ksbaek/%EC%98%88%EC%A0%9C%EB%A1%9C%20%EB%B0%B0%EC%9A%B0%EB%8A%94%20%EC%8A%A4%ED%94%84%EB%A7%81%20%EC%9E%85%EB%AC%B8.md)
