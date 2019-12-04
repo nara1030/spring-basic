@@ -19,6 +19,9 @@
 임시로 작성해놓는다(추후 확인 후 재작성하거나 삭제 예정).
 
 * [스프링 - 공식](https://github.com/spring-projects)
+* 시큐리티
+	* [기초 따라가기 - 하마님](https://hamait.tistory.com/325)
+	* [기초 정리 - 잠만보님](https://okky.kr/article/382738)
 * 게시판
 	* [bike5059님 정리](https://github.com/bike5059/Bizspring)
 * 챗봇
