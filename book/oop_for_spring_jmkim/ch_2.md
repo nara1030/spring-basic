@@ -7,7 +7,7 @@
 2. [객체 제외 메모리 사용 예제](#객체-제외-메모리-사용-예제)
 	* [메서드 스택 프레임1](#메서드-스택-프레임1)
 		* [JVM 전처리 작업](#메인-메서드가-실행되기-전-JVM에서-수행하는-전처리-작업들)
-	* 변수와 메모리
+	* [변수와 메모리](#변수와-메모리)
 	* 블록 구문과 메모리
 	* 지역 변수와 메모리
 	* 메서드 스택 프레임2
@@ -89,19 +89,21 @@ public class Start {
 
 이후 `main()` 메서드가 놀기 위해 스택 프레임(stack frame)이 스택 영역에 할당된다. 더 정확히 말하면 **여는 중괄호를 만날 때마다 스택 프레임이 하나씩** 생긴다.
 
-<img src="./img/stack_frame_1.jpg" width="300" height="200"></br>
+<img src="./img/stack_frame_1.jpg" width="300" height="150"></br>
 
 이후 메서드의 인자 args를 저장할 변수 공간을 스택 프레임의 맨 밑에 확보해야 한다. 즉, 메서드 인자(들)의 변수 공간을 할당하는 것이다.
 
-<img src="./img/stack_frame_2.jpg" width="300" height="200"></br>
+<img src="./img/stack_frame_2.jpg" width="300" height="150"></br>
 
 이후 `main()` 메서드 안의 첫 명령문을 실행하게 된다.
 
-<img src="./img/stack_frame_3.jpg" width="450" height="200"></br>
+<img src="./img/stack_frame_3.jpg" width="450" height="150"></br>
 
 그리고 `main()` 메서드의 끝을 나타내는 닫는 중괄호와 만났을 때 스택 프레임이 소멸된다.
 
-<img src="./img/stack_frame_4.jpg" width="350" height="200"></br>
+<img src="./img/stack_frame_4.jpg" width="350" height="150"></br>
+
+##### [목차로 이동](#목차)
 
 ### 메인 메서드가 실행되기 전 JVM에서 수행하는 전처리 작업들
 * `java.lang` 패키지를 T 메모리의 스태틱 영역에 배치
@@ -109,3 +111,24 @@ public class Start {
 * 프로그램 상의 모든 클래스를 T 메모리의 스태틱 영역에 배치
 	
 ##### [목차로 이동](#목차)
+
+### 변수와 메모리
+[T 메모리 구조](#T-메모리-구조)에서 언급을 했지만, 다음 예를 통해 변수와 그것이 저장되는 위치에 대해 살펴본다.
+
+```java
+public class Start2 {
+	public static void main(String[] args) {
+		int i;
+		i = 10;
+		
+		double d = 20.0;
+	}
+}
+```
+
+2번째 줄까진 첫 번째 예제와 동일하므로 3번째 줄이 실행되었을 때의 T 메모리 구조를 살펴보면 아래와 같다.
+
+<img src="./img/variable_stack_1.jpg" width="300" height="150"></br>
+
+##### [목차로 이동](#목차)
+
