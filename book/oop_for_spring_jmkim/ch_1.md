@@ -46,11 +46,13 @@
 ##### [목차로 이동](#목차)
 
 ## 스프링 프레임워크
-이 책의 가제는 `"객체 지향 in 자바 그리고 스프링 프레임워크 입문"`이었다. 객체 지향을 이해해야 올바른 자바 프로그램을 만들 수 있고, 또 스프링에 입문할 수 있다고 믿는 필자의 생각 때문이다. 이 책을 통해 필자가 얘기하고자 하는 것은 세 가지다.
+이 책의 가제는 `"객체 지향 in 자바 그리고 스프링 프레임워크 입문"`이었다. 객체 지향을 이해해야 올바른 자바 프로그램을 만들 수 있고, 또 스프링에 입문할 수 있다고 믿는 필자의 생각 때문이다. 이 책 전반을 통해 필자가 얘기하고자 하는, 우리가 배워갈 것은 세 가지다.
 
 * OOP 개념: `객체지향의 4대 특성`
 * 자바 언어의 문법
 * 자바가 OOP 개념을 구현한 방식
+
+##### [목차로 이동](#목차)
 
 ### 본질을 살피는 능력
 * CBD(Component Based Development)
@@ -72,9 +74,8 @@
 ### 스프링 프레임워크란
 이 책에서 스프링을 언급하기 전에 발전사를 언급한 이유는 현존하는 개발 사상과 개발 지원 제품 가운데 스프링이 가장 선봉에 서 있기 때문이다. 즉 절차적/구조적 프로그래밍에서 객체 지향, 디자인 패턴을 관통하고 있는 기술이라고 할 수 있다. 그래서일까, `스프링 프레임워크`는 자바와 같은 일종의 제품인데도 불구하고 어렵다는 인식이 있다. 이유는 스프링 프레임워크라는 제품에 담긴 개념(OOP 프레임워크)이 너무 방대하기 때문이다.
 
-> OOP 프레임워크 with IoC, DI, AOP, PSA, WEB, ORM, OXM, Security, Test, iBatis,  
-> Hibernate, JPA, JMS, Web Service, Schedule, JNDI, Email, JMX, Lime, Groovy,  
-> BeanShell, RMI, Struts, Velocity, PDF, Excel, ...  
+> OOP 프레임워크 with IoC, DI, AOP, PSA, WEB, ORM, OXM, Security, Test, iBatis, Hibernate, JPA, JMS, Web Service,  
+> Schedule, JNDI, Email, JMX, Lime, Groovy, BeanShell, RMI, Struts, Velocity, PDF, Excel, ...  
 > on POJO, SOLID, and OOP Design Patterns
 
 스프링 프레임워크는 그 규모의 방대함에도 불구하고 일관성 있는 방식으로 방대함을 쌓아 올렸다. OOP 기본기만 갖추어져 있다면 그것을 느낄 수 있다. 구체적으로는 POJO(Plain Old Java Object)에 세 가지 유형의 진동을 줌으로써 스프링 삼각형이라고 하는 IoC/DI, AOP, PSA를 통해 거대한 프레임워크를 완성했다.
