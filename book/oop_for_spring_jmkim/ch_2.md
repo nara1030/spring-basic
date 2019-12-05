@@ -89,19 +89,19 @@ public class Start {
 
 이후 `main()` 메서드가 놀기 위해 스택 프레임(stack frame)이 스택 영역에 할당된다. 더 정확히 말하면 **여는 중괄호를 만날 때마다 스택 프레임이 하나씩** 생긴다.
 
-<img src="./img/stack_frame_1.jpg" width="300" height="150"></br>
+<img src="./img/stack_frame_1.jpg" width="300" height="160"></br>
 
 이후 메서드의 인자 args를 저장할 변수 공간을 스택 프레임의 맨 밑에 확보해야 한다. 즉, 메서드 인자(들)의 변수 공간을 할당하는 것이다.
 
-<img src="./img/stack_frame_2.jpg" width="300" height="150"></br>
+<img src="./img/stack_frame_2.jpg" width="300" height="160"></br>
 
 이후 `main()` 메서드 안의 첫 명령문을 실행하게 된다.
 
-<img src="./img/stack_frame_3.jpg" width="450" height="150"></br>
+<img src="./img/stack_frame_3.jpg" width="450" height="170"></br>
 
 그리고 `main()` 메서드의 끝을 나타내는 닫는 중괄호와 만났을 때 스택 프레임이 소멸된다.
 
-<img src="./img/stack_frame_4.jpg" width="350" height="150"></br>
+<img src="./img/stack_frame_4.jpg" width="350" height="160"></br>
 
 ##### [목차로 이동](#목차)
 
@@ -128,7 +128,7 @@ public class Start2 {
 
 2번째 줄까진 첫 번째 예제와 동일하므로 3번째 줄이 실행되었을 때의 T 메모리 구조를 살펴보면 아래와 같다.
 
-<img src="./img/variable_stack_1.jpg" width="300" height="150"></br>
+<img src="./img/variable_stack_1.jpg" width="300" height="160"></br>
 
 ##### [목차로 이동](#목차)
 
