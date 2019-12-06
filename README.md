@@ -19,6 +19,8 @@
 임시로 작성해놓는다(추후 확인 후 재작성하거나 삭제 예정).
 
 * [스프링 - 공식](https://github.com/spring-projects)
+* MVC
+	* [Spring MVC 초기화 및 처리 과정 정리 - 패리어드님](https://okky.kr/article/657080)
 * 시큐리티
 	* [기초 따라가기 - 하마님](https://hamait.tistory.com/325)
 	* [기초 정리 - 잠만보님](https://okky.kr/article/382738)
