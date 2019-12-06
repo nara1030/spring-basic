@@ -219,6 +219,6 @@ public class Start4 {
 
 <img src="./img/call_stack_3.jpg" width="300" height="300"></br>
 
-메서드 블랙박스화. 캡슐화. 파라미터 규칙.
+메서드 블랙박스화. 캡슐화. 파라미터 규칙. 예외 처리.
 
 ##### [목차로 이동](#목차)
