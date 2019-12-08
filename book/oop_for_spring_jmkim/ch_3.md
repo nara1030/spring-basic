@@ -107,7 +107,7 @@
 
 <img src="./img/abstraction_2.jpg" width="400" height="300"></br>
 
-추상화란 애플리케이션 경계 내에서 관심 있는 특성들만 추출하는 과정이다. 추상화의 결과물은 모델인데, 이는 자바 언어에서 클래스로 표현된다. 클래스 모델을 표현하는 국제 표준 표기법은 UML 클래스 다이어그램이다.
+추상화란 애플리케이션 경계 내에서 관심 있는 특성들만 추출하는 과정이다. 추상화의 결과물은 모델인데, 이는 자바 언어에서 클래스로 표현된다. 클래스 모델을 표현하는 국제 표준 표기법은 UML 클래스 다이어그램이다(클래스 다이어그램을 상세하게 표현해도 메소드 내부 로직은 표현하지 못한다).
 
 <img src="./img/abstraction_3.jpg" width="250" height="100"></br>
 
@@ -249,6 +249,8 @@ public class Mouse {
 * 상위 클래스는 하위 클래스에게 물려줄 특성이 많을수록 좋을까? 적을수록 좋을까?
 * 인터페이스는 구현을 강제할 메서드가 많을수록 좋을까? 적을수록 좋을까?
 
+추후 추가. p119.
+
 - - -
 자바 API에서도 이러한 be able to 형식의 인터페이스를 많이 볼 수 있다.
 
@@ -257,12 +259,62 @@ public class Mouse {
 * Comparable 인터페이스: 비교할 수 있는
 * Runnable 인터페이스: 실행할 수 있는
 
-
+추후 추가.
 
 ##### [목차로 이동](#목차)
 
 #### 상속과 T 메모리
+아래와 같은 예제 코드가 있다(없어도 무방하나 책 없을 때를 대비해 작성).
 
+```java
+public class Animal {
+	public String name;
+	
+	public void showName() {
+		System.out.printf("안녕 나는 %s야. 반가워\n, name);
+	}
+}
+
+public class Penguin extends Animal {
+	public String habitats;
+	
+	public void showHabitat() {
+		System.out.printf("%s는 %s에 살아\n, name, habitat);
+	}
+}
+
+public class Driver {
+	public static void main(String[] args) {
+		Penguin pororo = new Penguin();
+		// 6번째 줄
+		pororo.name = "뽀로로";
+		pororo.habitat = "남극";
+		
+		pororo.showName();
+		pororo.showHabitat();
+		// 12번째 줄
+		Animal pingu = new Penguin();
+		// pingu.habitat = "EBS";
+		
+		pingu.showName();
+		// pingu.showHabitat();
+		// 18번째 줄
+		// Penguin happyfeet = new Animal();
+	}
+}
+```
+
+5번째 줄을 실행한 후의 T 메모리는 아래와 같다.
+
+<img src="./img/inheritance_3.jpg" width="550" height="300"></br>
+
+중요한 것은 Penguin 클래스의 인스턴스만 힙 영역에 생긴 게 아니라 Animal 클래스의 인스턴스도 함께 힙 영역에 생긴 것이다. 즉, 하위 클래스의 인스턴스가 생성될 때 상위 클래스의 인스턴스도 함께 생성된다. 그림에서는 생략했지만 사실 Animal 인스턴스 외에도 최상위 클래스인 Object 클래스의 인스턴스도 함께 생성된다. 한편 13번째 줄을 실행한 후 T 메모리의 구조는 다음과 같다.
+
+<img src="./img/inheritance_4.jpg" width="550" height="350"></br>
+
+
+
+링크드 리스트 개념? → 추후 추가.
 
 ##### [목차로 이동](#목차)
 
@@ -277,6 +329,5 @@ public class Mouse {
 ##### [목차로 이동](#목차)
 
 ## 기타
-
 
 ##### [목차로 이동](#목차)
