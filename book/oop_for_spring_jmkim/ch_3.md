@@ -152,7 +152,27 @@ public class MouseDriver {
 
 <img src="./img/abstraction_5.jpg" width="600" height="250"></br>
 
-이때 jerry 변수가 참조하고 있는 Mouse 객체는 mickey가 참조하고 있던 Mouse 객체가 아니다. 한편, 
+이때 jerry 변수가 참조하고 있는 Mouse 객체는 mickey가 참조하고 있던 Mouse 객체가 아니다. 한편 위처럼 추상화를 했을 경우 생각해볼만한 지점이 있는데, 아래를 살펴보자.
+
+<img src="./img/abstraction_6.jpg" width="600" height="250"></br>
+
+즉, T 메모리를 보면 모든 Mouse 객체가 같은 값을 갖는 꼬리 개수(countOfTail) 속성이 있음에도 Mouse 객체 수만큼 아까운 메모리를 잡아먹고 있다. 이런 경우 아래와 같이 한 곳에서만 쥐의 꼬리 개수(countOfTail)를 저장하려면 어떻게 해야 할까?
+
+<img src="./img/abstraction_7.jpg" width="600" height="250"></br>
+
+**static** 키워드 속성 앞에 붙이면 된다. 그렇게 되면 countOfTail 속성은 T 메모리의 스태틱 영역에 단 하나의 저장 공간을 갖게 된다.
+
+```java
+public class Mouse {
+	public String name;
+	public int age;
+	public static int countOfTail = 1;
+	
+	public void sing() {
+		System.out.println(name + "찍찍!!!");
+	}
+}
+``` 
 
 ##### [목차로 이동](#목차)
 
