@@ -11,6 +11,7 @@
 			* [상속과 인터페이스](#상속과-인터페이스)
 		* [상속과 T 메모리](#상속과-T-메모리)
 	* [다형성](#다형성)
+		* [다형성과 T 메모리](#다형성과-T-메모리)
 	* [캡슐화](#캡슐화)
 3. [기타](#기타)
 
@@ -321,6 +322,45 @@ public class Driver {
 ##### [목차로 이동](#목차)
 
 ### 다형성
+객체 지향에서 다형성이라고 하면 오버라이딩(overriding)과 오버로딩(overloading)이라고 할 수 있다(오버로딩이 다형성인지 아닌지에 대해서는 이견이 있다). 아래 예시 코드를 살펴본 후 메모리 사용을 분석해본다.
+
+```java
+public class Animal {
+	public String name;
+	
+	public void showName() {
+		System.out.println("안녕 나는 %s야. 반가워\n", name);
+	}
+}
+
+public class Penguin extends Animal {
+	public String habitat;
+	
+	public void showHabitat() {
+		System.out.printf("%s는 %s에 살아\n", name, habitat);
+	}
+	
+	// 오버라이딩 - 재정의
+	// 상위클래스의 메서드와 같은 메서드 이름, 같은 인자 리스트
+	public void showName() {
+		System.out.println("어머 내 이름은 알아서 뭐하게요?");
+	}
+	
+	// 오버로딩 - 중복정의
+	// 같은 메서드 이름, 다른 인자 리스트
+	public void showName(String yourName) {
+		System.out.printf("%s 안녕, 나는 %s라고 해\n", yourName, name);
+	}
+}
+```
+
+실행 결과는 다음과 같다.
+
+
+
+##### [목차로 이동](#목차)
+
+#### 다형성과 T 메모리
 
 
 ##### [목차로 이동](#목차)
