@@ -306,15 +306,17 @@ public class Driver {
 
 5번째 줄을 실행한 후의 T 메모리는 아래와 같다.
 
-<img src="./img/inheritance_3.jpg" width="550" height="300"></br>
+<img src="./img/inheritance_3.jpg" width="500" height="250"></br>
 
 중요한 것은 Penguin 클래스의 인스턴스만 힙 영역에 생긴 게 아니라 Animal 클래스의 인스턴스도 함께 힙 영역에 생긴 것이다. 즉, 하위 클래스의 인스턴스가 생성될 때 상위 클래스의 인스턴스도 함께 생성된다. 그림에서는 생략했지만 사실 Animal 인스턴스 외에도 최상위 클래스인 Object 클래스의 인스턴스도 함께 생성된다. 한편 13번째 줄을 실행한 후 T 메모리의 구조는 다음과 같다.
 
 <img src="./img/inheritance_4.jpg" width="550" height="350"></br>
 
+5번째 줄을 실행했을 때와 다른 점은 `pingu` 객체 참조 변수가 가리키고 있는 것은 Penguin 인스턴스가 아닌 Animal 인스턴스라는 점이다. 따라서 `pingu` 변수는 자신이 동물이라는 것만 인식하고 있으므로 14, 17번째 줄을 사용할 수 없다.
 
-
-링크드 리스트 개념? → 추후 추가.
+* [묵시적/명시적 형변환](https://sangmoo.tistory.com/53). p127.
+* [오브젝트 - 다형성](https://github.com/nara1030/portfolio/blob/master/docs/lecture_list/code_spitz/s83_object1/object1_week1_ch00-ch01.md)
+* 링크드 리스트 개념? → 추후 추가.
 
 ##### [목차로 이동](#목차)
 
