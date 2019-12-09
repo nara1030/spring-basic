@@ -12,6 +12,7 @@
 		* [상속과 T 메모리](#상속과-T-메모리)
 	* [다형성](#다형성)
 		* [다형성과 T 메모리](#다형성과-T-메모리)
+		* [다형성이 지원되지 않는 언어](#다형성이-지원되지-않는-언어)
 	* [캡슐화](#캡슐화)
 3. [기타](#기타)
 
@@ -322,14 +323,14 @@ public class Driver {
 ##### [목차로 이동](#목차)
 
 ### 다형성
-객체 지향에서 다형성이라고 하면 오버라이딩(overriding)과 오버로딩(overloading)이라고 할 수 있다(오버로딩이 다형성인지 아닌지에 대해서는 이견이 있다). 아래 예시 코드를 살펴본 후 메모리 사용을 분석해본다.
+다형성이란 **동일한 조작방법으로 메소드를 동작시키지만 실제 동작은 다른 것**을 의미한다(출처: [생활코딩](https://www.opentutorials.org/module/2495/14143)). 객체 지향에서 다형성이라고 하면 오버라이딩(overriding)과 오버로딩(overloading)이라고 할 수 있다(오버로딩이 다형성인지 아닌지에 대해서는 이견이 있다). 아래 예시 코드를 살펴본 후 메모리 사용을 분석해본다.
 
 ```java
 public class Animal {
 	public String name;
 	
 	public void showName() {
-		System.out.println("안녕 나는 %s야. 반가워\n", name);
+		System.out.printf("안녕 나는 %s야. 반가워\n", name);
 	}
 }
 
@@ -352,15 +353,53 @@ public class Penguin extends Animal {
 		System.out.printf("%s 안녕, 나는 %s라고 해\n", yourName, name);
 	}
 }
+
+public class Driver {
+	public static void main(String[] args) {
+		Penguin pororo = new Penguin();
+		// 6번째 줄
+		pororo.name = "뽀로로";
+		pororo.habitat = "남극";
+		// 9번째 줄
+		pororo.showName();
+		pororo.showName("초보람보");
+		pororo.showHabitat();
+		// 13번째 줄
+		Animal pingu = new Penguin();
+		
+		pingu.name = "핑구";
+		pingu.showName();
+	}
+}
 ```
 
 실행 결과는 다음과 같다.
 
+<img src="./img/polymorphism_1.png" width="550" height="200"></br>
 
+핵심은 4번째 줄, 즉 `pingu.showName()`의 실행 결과다. 이는 **상위 클래스 타입의 객체 참조 변수를 사용하더라도 하위 클래스에서 오버라이딩한 메서드가 호출**된다는 것을 의미한다.
 
 ##### [목차로 이동](#목차)
 
 #### 다형성과 T 메모리
+5번째 줄 및 14번째 줄을 실행한 뒤의 T 메모리 스냅샷은 각각 아래와 같다.
+
+<img src="./img/polymorphism_2.jpg" width="550" height="250"></br>
+
+<img src="./img/polymorphism_3.jpg" width="550" height="280"></br>
+
+이를 통해 아래 두 코드의 결과가 같은 이유를 알 수 있다.
+
+```java
+pororo.showName();	// 10번째 줄
+pingu.showName();	// 17번째 줄
+```
+
+Animal 객체에 정의된 `showName()` 메서드가 Penguin 객체에 있는 `showName()` 메서드에 의해 재정의, 즉 가려졌기 때문에 Penguin 객체에 있는 `showName()` 메서드가 실행된다.
+
+##### [목차로 이동](#목차)
+
+#### 다형성이 지원되지 않는 언어
 
 
 ##### [목차로 이동](#목차)
