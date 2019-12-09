@@ -323,7 +323,7 @@ public class Driver {
 ##### [목차로 이동](#목차)
 
 ### 다형성
-다형성이란 **동일한 조작방법으로 메소드를 동작시키지만 실제 동작은 다른 것**을 의미한다(출처: [생활코딩](https://www.opentutorials.org/module/2495/14143)). 객체 지향에서 다형성이라고 하면 오버라이딩(overriding)과 오버로딩(overloading)이라고 할 수 있다(오버로딩이 다형성인지 아닌지에 대해서는 이견이 있다). 아래 예시 코드를 살펴본 후 메모리 사용을 분석해본다.
+다형성이란 **동일한 조작방법으로 메소드를 동작시키지만 실제 동작은 다른 것**을 의미한다(출처: [생활코딩](https://www.opentutorials.org/module/2495/14143)). 즉 객체 지향에서 다형성이라고 하면 오버라이딩(overriding)과 오버로딩(overloading)이라고 할 수 있다(오버로딩이 다형성인지 아닌지에 대해서는 이견이 있다). 아래 예시 코드를 살펴본 후 메모리 사용을 분석해본다.
 
 ```java
 public class Animal {
@@ -375,7 +375,7 @@ public class Driver {
 
 실행 결과는 다음과 같다.
 
-<img src="./img/polymorphism_1.png" width="550" height="200"></br>
+<img src="./img/polymorphism_1.png" width="550" height="150"></br>
 
 핵심은 4번째 줄, 즉 `pingu.showName()`의 실행 결과다. 이는 **상위 클래스 타입의 객체 참조 변수를 사용하더라도 하위 클래스에서 오버라이딩한 메서드가 호출**된다는 것을 의미한다.
 
@@ -386,7 +386,7 @@ public class Driver {
 
 <img src="./img/polymorphism_2.jpg" width="550" height="250"></br>
 
-<img src="./img/polymorphism_3.jpg" width="550" height="280"></br>
+<img src="./img/polymorphism_3.jpg" width="550" height="290"></br>
 
 이를 통해 아래 두 코드의 결과가 같은 이유를 알 수 있다.
 
