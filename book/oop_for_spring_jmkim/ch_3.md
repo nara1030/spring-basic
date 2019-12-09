@@ -405,7 +405,14 @@ Animal 객체에 정의된 `showName()` 메서드가 Penguin 객체에 있는 `s
 ##### [목차로 이동](#목차)
 
 ### 캡슐화
+자바에서 정보 은닉(information hiding)이라고 하면 접근 제어자인 private, [default], protected, public이 떠오를 것이다(~~이 책에서 응집도 개념은 언급하지 않은 듯 싶다~~). 접근 제어자가 객체 멤버(인스턴스 멤버)와 쓰일 때와 정적 멤버(클래스 멤버)와 함께 쓰일 때를 비교해서 살펴보자.
 
+<img src="./img/encapsulation_1.jpg" width="550" height="300"></br>
+
+<img src="./img/encapsulation_2.jpg" width="550" height="300"></br>
+
+* .
+* [정답 예제 코드](https://github.com/expert0226/oopinspring/tree/master/workspace_springjava/Chap03/src/encapsulation01)
 
 ##### [목차로 이동](#목차)
 
