@@ -10,10 +10,10 @@
 	* [Proxy Pattern](#Proxy-Pattern)
 	* [Decorator Pattern](#Decorator-Pattern)
 	* Singleton Pattern
-	* Template Method Pattern
-	* Factory Method Pattern
+	* [Template Method Pattern](#Template-Method-Pattern)
+	* [Factory Method Pattern](#Factory-Method-Pattern)
 	* Stragety Pattern
-	* Template Callback Pattern
+	* [Template Callback Pattern](#Template-Callback-Pattern)
 2. [기타](#기타)
 	* 스프링이 사용한 다른 패턴들
 	* [참고](#참고)
@@ -123,6 +123,7 @@
 
 추후 정리.
 
+* [Decorator vs Adapter](https://hamait.tistory.com/868)
 * [자바에서는 Vector, Stack 등 옛 버전에서 사용하던 Enumeration을 Iterator로 바꾸며 어댑터 패턴 적용](https://gdtbgl93.tistory.com/141)
 * [객체 어댑터와 클래스 어댑터?](https://plposer.tistory.com/23)
 
@@ -190,14 +191,83 @@
 
 프록시 패턴의 특징을 정리하면 다음과 같다.
 
+* 대리자는 실제 서비스와 같은 이름의 메서드를 구현
+* 대리자는 실제 서비스에 대한 참조변수 가짐(합성)
+* 대리자는 실제 서비스와 같은 이름을 가진 메서드를 호출(∵ 인터페이스 사용) 후 그 값을 클라이언트에게 반환
+* 대리자는 실제 서비스의 메서드 호출 전후에 별도의 로직 수행 가능
 
-
+프록시 패턴은 개방 폐쇄 원칙과 의존 역전 원칙이 적용된 설계 패턴이다. 예로 위의 예제에서 들었던 Service와 Proxy 그리고 IService 사이의 구조를 살펴보면 OCP에서 예로 들었던 마티즈와 소나타 그리고 자동차와 유사하다. 또한 인터페이스를 중간에 두고 스노우타이어와 일반타이어, 광폭타이어를 서로 교체해 주어도 영향받지 않았던 자동차를 예로 들었던 DIP도 떠오른다.
 - - -
-추후 정리. [비교](https://hamait.tistory.com/868)
-	
+이전에 프록시 패턴에 대해 스터디했던 [링크](https://github.com/nara1030/DesignPattern/blob/master/study/week9_Proxy/week_9.md)를 추가한다. 관련해서 더 공부할 필요가 있다.
+
 ##### [목차로 이동](#목차)
 
 ### Decorator Pattern
+데코레이터는 장식자라는 뜻을 가지고 있다. 데코레이터 패턴은 프록시 패턴과 구현 방법이 같은데, 프록시 패턴이 클라이언트가 최종적으로 돌려받는 반환값을 조작하지 않고 그대로 전달하는 반면 데코레이터 패턴은 클라이언트가 받는 반환값에 장식을 덧입힌다.
+
+| 구분 | 설명 |
+| -- | -- |
+| 프록시 패턴 | 제어의 흐름을 변경하거나 별도의 로직 처리를 목적으로 함 |
+| 데코레이터 패턴 | 클라이언트가 받는 반환값에 장식을 더함 |
+
+이 두 패턴은 구현 방법이 같기 때문에 두 패턴의 클래스 다이어그램 및 시퀀스 다이어그램은 서로 같으므로 여기에선 코드만 살펴본다.
+
+```java
+// 패키지명(decoratorPattern)은 생략
+public interface IService {
+	public abstract String runSomething();
+}
+
+public class Service implements IService {
+	public String runSomething() {
+		return "서비스 짱!!";
+	}
+}
+
+public class Decorator implements IService {
+	IService service;
+	
+	public String runSomething() {
+		System.out.println("호출에 대한 장식 주목적, 클라이언트에게 반환 결과에 장식을 더하여 전달");
+		
+		service = new Service();
+		return "정말" + service.runSomething();
+	}
+}
+
+public class ClientWithDecorator {
+	public static void main(String[] args) {
+		IService decorator = new Decorator();
+		System.out.println(decorator.runSomething());
+	}
+}
+```
+
+데코레이터 패턴의 특징을 정리하면 아래와 같다.
+
+* 장식자는 실제 서비스와 같은 이름의 메서드를 구현
+* 장식자는 실제 서비스에 대한 참조 변수를 가짐(합성)
+* 장식자는 실제 서비스의 같은 이름을 가진 메서드를 호출(∵ 인터페이스 사용) 후 그 값에 장식을 더해 클라이언트에게 반환
+* 장식자는 실제 서비스의 메서드 호출 전후에 별도의 로직 수행 가능
+
+데코레이터 패턴이 프록시 패턴과 동일한 구조를 갖기에 이 또한 개방 폐쇄 원칙(OCP)과 의존 역전 원칙(DIP)이 적용된 설계 패턴임을 알 수 있다.
+
+- - -
+이전에 데코레이터 패턴에 대해 스터디했던 [링크](https://github.com/nara1030/TIL/blob/master/docs/study/designPattern/designPattern_week_3.md)를 추가한다. 참고해서 더 공부할 필요가 있다.
+
+##### [목차로 이동](#목차)
+
+### Template Method Pattern
+
+
+##### [목차로 이동](#목차)
+
+### Factory Method Pattern
+
+
+##### [목차로 이동](#목차)
+
+### Template Callback Pattern
 
 
 ##### [목차로 이동](#목차)
@@ -208,7 +278,12 @@
 ##### [목차로 이동](#목차)
 
 ### 참고
-* 디자인 패턴 스터디 링크
+* [Proxy 패턴 vs Decorator 패턴](https://hamait.tistory.com/868)
 * 시퀀스 다이어그램
+	* [참고 - 1](https://mrhook.co.kr/219)
+	* [참고 - 2](https://thinking-jmini.tistory.com/29)
+	* [참고 - 3](https://1000yun.tistory.com/23)
+	* [참고 - 4](https://genesis8.tistory.com/186)
+	* [참고 - 5](https://blog.naver.com/youngeps/116126809)
 
 ##### [목차로 이동](#목차)
