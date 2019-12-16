@@ -258,7 +258,19 @@ public class ClientWithDecorator {
 ##### [목차로 이동](#목차)
 
 ### Template Method Pattern
+템플릿 메서드 패턴은 짧게 정리해서 다음과 같다.
 
+> "상위 클래스의 견본 메서드에서 하위 클래스가 오버라이딩한 패턴을 호출하는 패턴"
+
+클래스 다이어그램을 보면 템플릿 메서드 패턴이 의존 역전 원칙(DIP)을 활용하고 있음을 알 수 있다. 자세한 내용은 다음 글들로 갈음한다.
+
+* [템플릿 메서드 패턴 - 헤드퍼스트](https://github.com/nara1030/TIL/blob/master/docs/study/designPattern/designPattern_week_7.md#%ED%85%9C%ED%94%8C%EB%A6%BF-%EB%A9%94%EC%86%8C%EB%93%9C-%ED%8C%A8%ED%84%B4)
+* [템플릿 메서드 패턴 - 오브젝트](https://github.com/nara1030/TIL/blob/master/docs/lecture_list/code_spitz/s83_object1/object1_ch10.md#%ED%95%A9%EC%84%B1%EA%B3%BC-%EC%9D%98%EC%A1%B4%EC%84%B1)
+- - -
+추가로 아래 글들도 읽어볼 필요가 있다.
+
+* [템플릿 메서드 패턴 - 기계인간](https://johngrib.github.io/wiki/template-method-pattern/)
+* [IoC - 기계인간](https://johngrib.github.io/wiki/spring-ioc/)
 
 ##### [목차로 이동](#목차)
 
@@ -268,7 +280,7 @@ public class ClientWithDecorator {
 ##### [목차로 이동](#목차)
 
 ### Template Callback Pattern
-
+템플릿 콜백 패턴은 전략 패턴의 변형으로, 스프링 3대 프로그래밍 모델 중 하나인 DI(의존성 주입)에서 사용하는 특별한 형태의 전략 패턴이다. 템플릿 콜백 패턴은 전략 패턴과 모든 것이 동일한데 
 
 ##### [목차로 이동](#목차)
 
