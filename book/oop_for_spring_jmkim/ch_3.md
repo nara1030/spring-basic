@@ -377,7 +377,7 @@ public class Driver {
 
 <img src="./img/polymorphism_1.png" width="550" height="150"></br>
 
-핵심은 4번째 줄, 즉 `pingu.showName()`의 실행 결과다. 이는 **상위 클래스 타입의 객체 참조 변수를 사용하더라도 하위 클래스에서 오버라이딩한 메서드가 호출**된다는 것을 의미한다.
+핵심은 4번째 줄, 즉 `pingu.showName()`의 실행 결과다. 이는 **상위 클래스 타입의 객체 참조 변수를 사용하더라도 하위 클래스에서 오버라이딩한 메서드가 호출**된다는 것을 의미한다([참고: 다형성의 정의](https://github.com/nara1030/TIL/blob/master/docs/lecture_list/code_spitz/s83_object1/object1_week1_ch00-ch01.md)).
 
 ##### [목차로 이동](#목차)
 
