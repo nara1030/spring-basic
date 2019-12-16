@@ -151,7 +151,7 @@ SOLID는 로버트 C. 마틴이 2000년대 초반 객체 지향 프로그래밍 
 ##### [목차로 이동](#목차)
 
 ### DIP
-> A. High-level modules should not depend on low-level modules. Both should depend on abstractions.
+> A. High-level modules should not depend on low-level modules. Both should depend on abstractions.  
 > B. Abstractions should not depend on details. Details should depend on abstractions.
 
 이는 모두 로버트 C. 마틴의 말로 DIP 원칙을 나타내는 말이다(참고로 관련 개념으로 DI, IoC 등은 다음 [링크](https://jwchung.github.io/DI%EB%8A%94-IoC%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%98%EC%A7%80-%EC%95%8A%EC%95%84%EB%8F%84-%EB%90%9C%EB%8B%A4) 참고하면 좋다). 간단한 것으로 책의 예는 아래와 같다.
