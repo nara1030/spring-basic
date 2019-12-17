@@ -277,6 +277,8 @@ public class ClientWithDecorator {
 ### Factory Method Pattern
 
 
+[팩토리 메소드](https://github.com/nara1030/TIL/blob/master/docs/study/designPattern/designPattern_week_4.md). [스터디](https://github.com/nara1030/DesignPattern/blob/master/study/week4_Factory/week_4.md). [추상 팩토리 메소드](https://github.com/nara1030/TIL/blob/master/docs/study/designPattern/designPattern_week_5.md). 스터디 카톡.
+
 ##### [목차로 이동](#목차)
 
 ### Template Callback Pattern
