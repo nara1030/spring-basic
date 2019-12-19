@@ -65,8 +65,8 @@
 	* 시퀀스 다이어그램  
 	<img src="./img/di_2.jpg" width="400" height="200"></br>
 * 코드
-	* [메인 코드](.src/ExpertSpring30/src/main/java/expert001_01)
-	* [테스트 코드](.src/ExpertSpring30/src/test/java/expert001_01)
+	* [메인 코드](https://github.com/nara1030/spring-basic/tree/master/book/oop_for_spring_jmkim/src/ExpertSpring30/src/main/java/expert001_01)
+	* [테스트 코드](https://github.com/nara1030/spring-basic/blob/master/book/oop_for_spring_jmkim/src/ExpertSpring30/src/test/java/expert001_01/CarTest.java)
 
 ##### [목차로 이동](#목차)
 
@@ -98,10 +98,10 @@
 	* 시퀀스 다이어그램  
 	<img src="./img/di_3.jpg" width="400" height="200"></br>
 * 코드
-	* [메인 코드](.src/ExpertSpring30/src/main/java/expert001_02)
+	* [메인 코드](https://github.com/nara1030/spring-basic/tree/master/book/oop_for_spring_jmkim/src/ExpertSpring30/src/main/java/expert001_02)
 		* new를 통해 타이어를 생산하는 부분이 `Car.java`에서 `Driver.java`로 이동
 		* 생산된 tire 객체 참조 변수를 Car 생성자의 인자로 전달
-	* [테스트 코드](.src/ExpertSpring30/src/test/java/expert001_02)
+	* [테스트 코드](https://github.com/nara1030/spring-basic/blob/master/book/oop_for_spring_jmkim/src/ExpertSpring30/src/test/java/expert001_02/CarTest.java)
 
 변경된 코드를 현실 세계에 비유하면 자동차가 생산될 때 어떤 타이어를 장착할까를 자동차 스스로 고민하지 않고, 운전자가 차량을 생산할 때 운전자가 어떤 타이어를 장착할까를 고민하게 하는 것이다. 자동차는 어떤 타이어를 장착할까를 더는 고민하지 않아도 된다. 이러한 구현 방식에는 어떤 장점이 있을까? 기존에 비해 더 **유연한 코드**가 된다. 왜냐하면 기존 방식에서라면 Car는 KoreaTire, AmericaTire에 대해 정확히 알고 있어야만 그에 해당하는 객체를 생성할 수 있었지만 의존성 주입을 적용할 경우 Car는 그저 Tire 인터페이스를 구현한 어떤 객체가 들어오기만 하면 정상적으로 작동되기 때문이다.
 
@@ -136,10 +136,10 @@
 	* 시퀀스 다이어그램  
 	<img src="./img/di_6.jpg" width="400" height="200"></br>
 * 코드
-	* [메인 코드](.src/ExpertSpring30/src/main/java/expert001_03)
+	* [메인 코드](https://github.com/nara1030/spring-basic/tree/master/book/oop_for_spring_jmkim/src/ExpertSpring30/src/main/java/expert001_03)
 		* Car 클래스에서 생성자가 사라지고 tire 속성의 get/set 속성 메서드 생성
 		* 자바 컴파일러가 기본 생성자 제공
-	* [테스트 코드](.src/ExpertSpring30/src/test/java/expert001_03)
+	* [테스트 코드](https://github.com/nara1030/spring-basic/blob/master/book/oop_for_spring_jmkim/src/ExpertSpring30/src/test/java/expert001_03/CarTest.java)
 
 ##### [목차로 이동](#목차)
 
