@@ -181,7 +181,7 @@
 
 `KoreaTire.java`가 XML 파일에서 id=aKoreaTire인 bean 태그와 연결돼 있고, 다시 `Driver.java`의 main() 메서드 안의 코드인 context.getBean("aKoreaTire", Tire.class)와 연결돼 있는 것을 볼 수 있다(책과 변수명 상이). 이를 실행한 결과는 다음과 같다.
 
-<img src="./img/di_9.png" width="1100" height="150"></br>
+<img src="./img/di_9.png" width="1400" height="150"></br>
 
 기존과 같은 결과이지만 INFO와 관련된 세 줄이 다름을 볼 수 있다. 이는 내부적으로 쇼핑몰(스프링 프레임워크)을 구축하는 과정에서 보여지는 정보라고 생각하면 된다.
 
