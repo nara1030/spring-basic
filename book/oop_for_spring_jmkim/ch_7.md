@@ -144,7 +144,7 @@
 ##### [목차로 이동](#목차)
 
 #### XML
-지금까지는 스프링을 사용하지 않고 의존성을 주입했다. 이제는 스프링을 이용해 의존성을 주입해본다.
+지금까지는 스프링을 사용하지 않고 의존성을 주입했다. 이제는 스프링을 이용해 의존성을 주입해본다. 스프링을 통한 의존성 주입은 생성자를 통한 의존성 주입과 속성을 통한 의존성 주입을 모두 지원하는데, 여기서는 속성을 통한 의존성 주입만 살펴본다.
 
 * 의사 코드  
 	```
@@ -155,10 +155,48 @@
 * 자바로 표현 - 속성 메서드 사용  
 	```java
 	ApplicationContext context = new ClassPathXmlApplicationContext("expert002.xml", Driver.class);
-	Tire aTire = (Tire) context.getBean("tire");
-	Car aCar = (Car) context.getBean("car");
+	Tire aTire = (Tire) context.getBean("aTire");
+	Car aCar = (Car) context.getBean("aCar");
 	aCar.setTire(aTire);
 	```
+
+의사 코드를 보면 기존과 달라진 점은 종합 쇼핑몰이 생기고 생산이 구매로 바뀌었음을 확인할 수 있다.
+
+* UML
+	* 클래스 다이어그램: [기존](#속성)과 동일
+	* 시퀀스 다이어그램  
+	<img src="./img/di_7.jpg" width="400" height="250"></br>
+* 코드
+	* [메인 코드](https://github.com/nara1030/spring-basic/tree/master/book/oop_for_spring_jmkim/src/ExpertSpring30/src/main/java/expert002)
+		* `Driver.java`에서 기존 생산 과정이 구매 과정으로 바뀜
+			* 상품을 구매할 종합 쇼핑몰에 대한 정보가 필요하기 때문
+		* `expert002.xml`에 쇼핑몰에서 구매 가능한 상품 목록 등록
+			* New → Other → Spring → Spring Bean Configuration File 
+			* 상품을 등록할 때는 bean 태그 이용
+	* [테스트 코드](https://github.com/nara1030/spring-basic/blob/master/book/oop_for_spring_jmkim/src/ExpertSpring30/src/test/java/expert002/CarTest.java)
+
+좀 더 상세히 이해하기 위해 `Driver.java`와 `expert002.xml`를 함께 볼 필요가 있다.
+
+<img src="./img/di_8.jpg" width="500" height="350"></br>
+
+`KoreaTire.java`가 XML 파일에서 id=aKoreaTire인 bean 태그와 연결돼 있고, 다시 `Driver.java`의 main() 메서드 안의 코드인 context.getBean("aKoreaTire", Tire.class)와 연결돼 있는 것을 볼 수 있다(책과 변수명 상이). 이를 실행한 결과는 다음과 같다.
+
+<img src="./img/di_9.png" width="700" height="100"></br>
+
+기존과 같은 결과이지만 INFO와 관련된 세 줄이 다름을 볼 수 있다. 이는 내부적으로 쇼핑몰(스프링 프레임워크)을 구축하는 과정에서 보여지는 정보라고 생각하면 된다.
+
+스프링을 도입해서 얻는 이득은 무엇일까? 가장 큰 이점은 자동차의 타이어 브랜드를 변경할 때 그 무엇도 재컴파일/재배포하지 않아도 XML 파일만 수정하면 프로그램의 실행 결과를 바꿀 수가 있다는 것이다. 아래 `Driver.java`를 보면 자바 코드 어디에도 KoreaTire 클래스나 AmericaTire 클래스를 지칭하는 부분이 없다.
+
+```java
+Tire aTire = context.getBean("aTire", Tire.class);
+```
+
+바로 `expert002.xml`에 이에 해당하는 내용이 있기 때문이다. 지금은 `expert002.xml`에서 id가 aTire인 bean 태그의 class 어트리뷰터가 KoreaTire로 지정되어 있는데 아래와 같이 AmericaTire로 타이어를 바꿔야 하더라도 자바 코드를 변경/재컴파일/재배포할 필요가 없다. XML 파일을 변경하고 프로그램을 실행하면 바로 변경사항이 적용되기 때문이다.
+
+```xml
+<bean id="aKoreaTire" class="expert002.KoreaTire"></bean>
+<bean id="aTire" class="expert002.AmericaTire"></bean>
+```
 
 ##### [목차로 이동](#목차)
 
