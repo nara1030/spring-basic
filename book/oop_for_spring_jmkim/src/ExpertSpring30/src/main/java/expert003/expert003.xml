@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="aKoreaTire" class="expert003.KoreaTire"></bean>
+	<bean id="anAmericaTire" class="expert003.AmericaTire"></bean>
+	
+	<bean id ="aCar" class="expert003.Car">
+		<property name="tire" ref="aKoreaTire"></property>
+	</bean>
+
+</beans>
