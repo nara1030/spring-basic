@@ -9,7 +9,7 @@
 		* [생성자](#생성자)
 		* [속성](#속성)
 		* [XML](#XML)
-		* 어노테이션
+		* [어노테이션](#어노테이션)
 3. [AOP](#AOP)
 4. [PSA](#PSA)
 5. [참고](#참고)
@@ -237,7 +237,13 @@ XML 파일에 새롭게 property라고 하는 부분이 보인다. 자바에서 
 
 <img src="./img/di_11.jpg" width="350" height="250"></br>
 
+- - -
 XML로 속성 주입 시 property의 name에 tire 이외의 단어를 치면 에러가 떴다(ex.koreaTire, americaTire). 해서 Car 클래스의 Tire 속성의 변수명(aTire)을 입력해주면 될 줄 알았으나 에러가 떴다(`No setter found for property 'aTire' in class 'expert003.Car'`). 이 부분 확인 필요.
+
+##### [목차로 이동](#목차)
+
+#### 어노테이션
+
 
 ##### [목차로 이동](#목차)
 
