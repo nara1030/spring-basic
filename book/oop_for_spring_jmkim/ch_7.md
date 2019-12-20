@@ -198,6 +198,47 @@ Tire aTire = context.getBean("aTire", Tire.class);
 <bean id="aTire" class="expert002.AmericaTire"></bean>
 ```
 
+이번엔 좀 더 나아가서 스프링 설정 파일(XML)에서 속성을 주입해본다.
+
+* 의사 코드  
+	```
+	운전자가 종합 쇼핑몰에서 자동차를 구매 요청한다.
+	종합 쇼핑몰은 자동차를 생산한다.
+	종합 쇼핑몰은 타이어를 생산한다.
+	종합 쇼핑몰은 자동차에 타이어를 장착한다.
+	종합 쇼핑몰은 운전자에게 자동차를 전달한다.
+	```
+* 자바로 표현  
+	```java
+	ApplicationContext context = new ClassPathXmlApplicationContext("expert003/expert003.xml);
+	Car car = context.getBean("car", Car.class);
+	```
+* XML로 표현  
+	```xml
+	<bean id="aKoreaTire" class="expert003.KoreaTire"></bean>
+	<bean id="anAmericaTire" class="expert003.AmericaTire"></bean>
+	<bean id="aCar" class="expert003.Car">
+		<property name="tire" ref="aKoreaTire"></property>
+	</bean>
+	```
+
+시퀀스 다이어그램이 앞에서와 조금 달라졌다.
+
+* UML
+	* 클래스 다이어그램: [기존](#속성)과 동일
+	* 시퀀스 다이어그램  
+	<img src="./img/di_10.jpg" width="450" height="250"></br>
+* 코드
+	* [메인 코드](https://github.com/nara1030/spring-basic/tree/master/book/oop_for_spring_jmkim/src/ExpertSpring30/src/main/java/expert003)
+	* [테스트 코드](https://github.com/nara1030/spring-basic/blob/master/book/oop_for_spring_jmkim/src/ExpertSpring30/src/test/java/expert003/CarTest.java): `재확인`
+		* JUnit 및 Spring-Test 사용
+
+XML 파일에 새롭게 property라고 하는 부분이 보인다. 자바에서 접근자 및 설정자 메서드를 속성 메서드라고 하는데 영어로 속성은 Property다. 결국 `Driver.java`에서 car.setTire(tire)라고 하던 부분을 XML 파일의 property 태그를 이용해 대체하는 것이다. 즉 스프링 설정 파일을 통해 의존성 주입이 이루어지고 있다.
+
+<img src="./img/di_11.jpg" width="350" height="250"></br>
+
+XML로 속성 주입 시 property의 name에 tire 이외의 단어를 치면 에러가 떴다(ex.koreaTire, americaTire). 해서 Car 클래스의 Tire 속성의 변수명(aTire)을 입력해주면 될 줄 알았으나 에러가 떴다(`No setter found for property 'aTire' in class 'expert003.Car'`). 이 부분 확인 필요.
+
 ##### [목차로 이동](#목차)
 
 ## AOP
@@ -211,6 +252,6 @@ Tire aTire = context.getBean("aTire", Tire.class);
 ##### [목차로 이동](#목차)
 
 ## 참고
-
+* [Spring bean 및 XML 사용법 - lalwr님](https://lalwr.blogspot.com/2018/04/spring-bean-xml.html)
 
 ##### [목차로 이동](#목차)
