@@ -12,6 +12,8 @@
 		* [어노테이션](#어노테이션)
 			* @Resource vs `<property>`
 3. [AOP](#AOP)
+	* [이론](#이론)
+	* [용어](#용어)
 4. [PSA](#PSA)
 5. [참고](#참고)
 	* [어노테이션 속성 매칭 규칙](#어노테이션-속성-매칭-규칙)
@@ -385,7 +387,11 @@ try {
 	예외상황처리: 집에 불남 - 119에 신고한다.
 	```
 
-이를 구현한 코드는 [다음](https://github.com/nara1030/spring-basic/tree/master/book/oop_for_spring_jmkim/src/ExpertSpring30/src/main/java/aop001)과 같다. 한편 스프링 DI가 의존성에 대한 주입이라면 스프링 AOP는 로직 주입이라고 했는데, 로직은 어디에 주입할 수 있을까? 객체 지향에서 로직(코드)이 있는 곳은 당연히 메서드의 안쪽이다. 그럼 메서드에서 코드를 주입할 수 있는 곳은 몇 군데일까?
+이를 구현한 코드는 [다음](https://github.com/nara1030/spring-basic/tree/master/book/oop_for_spring_jmkim/src/ExpertSpring30/src/main/java/aop001)과 같고 그 실행결과는 아래와 같다.
+
+<img src="./img/aop_3.png" width="600" height="250"></br>
+
+한편 스프링 DI가 의존성에 대한 주입이라면 스프링 AOP는 로직 주입이라고 했는데, 로직은 어디에 주입할 수 있을까? 객체 지향에서 로직(코드)이 있는 곳은 당연히 메서드의 안쪽이다. 그럼 메서드에서 코드를 주입할 수 있는 곳은 몇 군데일까?
 
 <img src="./img/aop_2.jpg" width="300" height="250"></br>
 
@@ -396,6 +402,63 @@ try {
 * After
 * AfterReturning
 * AfterThrowing
+
+직접 코드를 통해 살펴본다. 전체 코드는 [다음](https://github.com/nara1030/spring-basic/tree/master/book/oop_for_spring_jmkim/src/ExpertSpring30/src/main/java/aop002)에서 확인 가능하다. 
+
+* XML 설정 파일  
+	```xml
+	<aop:aspectj-autoproxy />
+	
+	<bean id="myAspect" class="aop002.MyAspect" />
+	<bean id="boy" class="aop002.Boy" />
+	```
+* 자바 파일  
+	```java
+	package aop002;
+
+	// import org.aopalliance.intercept.Joinpoint;
+	import org.aspectj.lang.JoinPoint;
+	import org.aspectj.lang.annotation.Aspect;
+	import org.aspectj.lang.annotation.Before;
+
+	@Aspect
+	public class MyAspect {
+		@Before("excution(public void aop002.Boy.runSomething())")
+		public void before(JoinPoint joinPoint) {
+			System.out.println("얼굴 인식 확인: 문을 개방하라");
+			// System.out.println("열쇠로 문을 열고 집에 들어간다.");
+		}
+	}
+	```
+
+이에 대한 실행결과는 다음과 같다.
+
+<img src="./img/aop_4.png" width="2000" height="150"></br>
+
+즉 이제 열쇠로 문을 열고 들어가는 것이 아니라 스프링 프레임워크가 사용자를 인식해 자동으로 문을 열어주게 된다. 간략하게 어노테이션에 대한 설명을 덧붙인다.
+
+* @Aspect는 해당 클래스를 AOP에서 사용하겠다는 의미
+* @Before는 대상 메서드 실행 전에 해당 메서드를 실행하겠다는 의미
+* JoinPoint는 대상 메서드, 즉 @Before에서 선언된 메서드인 `aop002.Boy.runSomething()`를 의미
+
+- - -
+에러. p291.
+
+##### [목차로 이동](#목차)
+
+### 이론
+앞의 예제에 대해 좀 더 살펴보자. aop001 코드에 비해 aop002 코드의 양이 상당히 많이 늘어났음을 알 수 있다. 하지만 주목할 것은 `Boy.java`의 코드에서 횡단 관심사는 모두 사라지고 핵심 관심사만 남았다는 점이다. 즉 개발할 때는 한 개의 `Boy.java`를 4개의 파일로 분할해서 개발해야 하지만 추가 개발과 유지보수 관점에서 보면 무척 유리하다. 또한 AOP를 적용함으로써 `Boy.java`에 단일 책임 원칙(SRP)이 자연스럽게 적용되었다.
+
+<img src="./img/aop_5.jpg" width="700" height="300"></br>
+
+위 그림은 AOP를 통해 런타임에 로직이 주입되는 것을 나타낸다. 예제의 실행 결과 역시 @Before로 만들어진 before 메서드가 런타임에 위 그림에서처럼 주입되는 것을 보여주고 있다.
+
+
+
+##### [목차로 이동](#목차)
+
+### 용어
+
 
 ##### [목차로 이동](#목차)
 
