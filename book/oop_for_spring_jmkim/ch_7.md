@@ -13,6 +13,9 @@
 3. [AOP](#AOP)
 4. [PSA](#PSA)
 5. [참고](#참고)
+	* [어노테이션 속성 매칭 규칙](#어노테이션-속성-매칭-규칙)
+	* XML vs 어노테이션
+	* [참고문헌](#참고문헌)
 
 ## 개요
 1장에서 스프링 삼각형과 설정 정보에 대해 언급했었다.
@@ -243,7 +246,98 @@ XML로 속성 주입 시 property의 name에 tire 이외의 단어를 치면 에
 ##### [목차로 이동](#목차)
 
 #### 어노테이션
+앞에서 스프링을 통한 의존성 주입을 위해 XML을 이용했다. 이번엔 어노테이션을 이용해 속성을 주입하는 두 가지 방법을 알아보겠다. 먼저 @Autowired를 통한 속성 주입을 알아보겠다. 의사 코드는 이전(XML)과 동일하다.
 
+* 의사 코드  
+	```
+	운전자가 종합 쇼핑몰에서 자동차를 구매 요청한다.
+	종합 쇼핑몰은 자동차를 생산한다.
+	종합 쇼핑몰은 타이어를 생산한다.
+	종합 쇼핑몰은 자동차에 타이어를 장착한다.
+	종합 쇼핑몰은 운전자에게 자동차를 전달한다.
+	```
+
+달라진 점은 기존에는 설정자 메서드를 통해 Car 객체에 tire 값을 주입했지만 이제는 import문 하나와 @Autowired 애노테이션을 이용해 손쉽게 종합 쇼핑몰인 스프링 프레임워크가 설정 파일을 통해 속성을 주입해준다는 점이다. 직접 코드를 비교해보면 아래와 같다.
+
+* 기존 코드  
+	```java
+	// Car 클래스
+	Tire tire;
+	
+	public void setTire(Tire tire) {
+		this.tire = tire;
+	}
+	```
+* 변경된 코드  
+	```java
+	import org.springframework.beans.factory.annotation.Autowired;
+	
+	@Autowired
+	Tire tire;
+	```
+
+애노테이션을 이용하기 위해 변경된 스프링 설정 파일(expert004.xml)에서 변경된 부분(빨간색 네모칸)을 살펴보자.
+
+<img src="./img/di_12.png" width="450" height="250"></br>
+
+기존 스프링 설정 파일 대비 추가된 부분은 다음 과정을 통해 추가할 수 있다.
+
+```txt
+expert004.xml 파일 마우스 우클릭
+→ Open With
+→ Spring Config Editor
+→ Namespace 탭에서 context 체크
+→ Source 탭에서 아래 문구 추가
+  <context:annotation-config/>
+```
+
+또한 XML을 통한 속성 주입시와 달라진 부분은 아래와 같다.
+
+* 기존 XML 설정 파일  
+	```xml
+	<bean id="aCar" class="expert003.Car">
+		<property name="tire" ref="koreaTire"></property>
+	</bean>
+	```
+* 수정된 XML 설정 파일  
+	```xml
+	<bean id="aCar" class="expert004.Car"></bean>
+	```
+
+왜 property 태그가 사라졌을까? @Autowired를 통해 aCar의 property를 자동으로 엮어줄 수 있으므로(자동 의존성 주입) 생략이 가능해진 것이다. 즉 @Autowired는 **스프링 설정 파일을 보고 자동으로 속성의 설정자 메서드에 해당하는 역할을 해주겠다**는 의미다.
+
+* 코드
+	* [메인 코드](https://github.com/nara1030/spring-basic/tree/master/book/oop_for_spring_jmkim/src/ExpertSpring30/src/main/java/expert004)
+	* 테스트 코드
+
+참고로 실행결과는 아래와 같다. XML을 통한 속성 주입에 비해 스프링이 내부적으로 준비하는 INFO 정보가 더 늘어났음을 확인할 수 있다.
+	
+<img src="./img/di_13.png" width="2000" height="150"></br>
+
+지금까지는 @Autowired를 통해 속성을 주입했었는데, 이제는 @Resource를 통한 속성 주입을 살펴본다. 의사 코드는 이전과 동일하다.
+
+* 의사 코드  
+	```
+	운전자가 종합 쇼핑몰에서 자동차를 구매 요청한다.
+	종합 쇼핑몰은 자동차를 생산한다.
+	종합 쇼핑몰은 타이어를 생산한다.
+	종합 쇼핑몰은 자동차에 타이어를 장착한다.
+	종합 쇼핑몰은 운전자에게 자동차를 전달한다.
+	```
+
+코드의 경우도 @Autowired가 @Resource로 변경되었을 뿐 동일하다. 그렇다면 굳이 왜 변경했는가? @Autowired는 스프링의 어노테이션인 반면 @Resource는 자바 표준 어노테이션이다. 즉 스프링 프레임워크를 사용하지 않는다면 @Autowired는 사용할 수 없고 오직 @Resource만을 사용해야 한다. 또한 이미 살펴봤듯 @Autowired의 경우 type과 id 가운데 type이 매칭 우선 순위가 높지만 @Resource의 경우는 그 반대다. 즉 @Resource의 경우 id로 매칭할 빈을 찾지 못한 경우 type으로 매칭할 빈을 찾게 된다. 정리하면 아래와 같다.
+
+| | @Autowired | @Resource |
+| -- | -- | -- |
+| 출처 | 스프링 프레임워크 | 표준 자바 |
+| 소속 패키지 | org.springframework.beans.factory.annotation.Autowired | javax.annotation.Resource |
+| 빈 검색 방식 | byType 먼저, 못 찾으면 byName | byName 먼저, 못 찾으면 byType |
+| 특이사항 | @Qualifier("") 협업 | name 어트리뷰트 |
+| byName 강제하기 | @Autowired \n @Qualifier("tire1") | @Resource(name="tire1") |
+
+* 코드
+	* [메인 코드](https://github.com/nara1030/spring-basic/tree/master/book/oop_for_spring_jmkim/src/ExpertSpring30/src/main/java/expert005)
+	* 테스트 코드
 
 ##### [목차로 이동](#목차)
 
@@ -258,6 +352,47 @@ XML로 속성 주입 시 property의 name에 tire 이외의 단어를 치면 에
 ##### [목차로 이동](#목차)
 
 ## 참고
+
+### 어노테이션 속성 매칭 규칙
+<img src="./img/di_14.jpg" width="350" height="250"></br>
+
+위 매칭 규칙을 보면 두 가지를 확인할 수 있다.
+
+* 스프링의 @Autowired는 id 매칭보다 type 매칭이 우선
+* 인터페이스 구현 여부 중요
+
+따라서 아래와 같이 bean의 id 속성이 없음에도 매칭시킨 것이다.
+
+| 파일 | 코드 |
+| -- | -- |
+| Car.java | @Autowired Tire tire; |
+| expert.xml | <bean class="expert004.AmericaTire"></bean> |
+| AmericaTire.java | public class AmericaTire implements Tire |
+
+다른 사례들의 경우에도 매칭 여부를 판단해볼 수 있다.
+
+* 사례-1: O  
+	| 파일 | 코드 |
+	| -- | -- |
+	| Car.java | @Autowired Tire tire; |
+	| expert.xml | <bean id="usaTire" class="expert004.AmericaTire"></bean> |
+* 사례-2: X  
+	| 파일 | 코드 |
+	| -- | -- |
+	| Car.java | @Autowired Tire tire; |
+	| expert.xml | <bean class="expert004.KoreaTire"></bean> |
+	| | <bean class="expert004.AmericaTire"></bean> |
+* 사례-3: O  
+	| 파일 | 코드 |
+	| -- | -- |
+	| Door.java | public class Door { } |
+	| Car.java | @Autowired Tire tire; |
+	| expert.xml | <bean class="expert004.KoreaTire"></bean> |
+	| | <bean id="tire" class="expert004.Door"></bean> |	
+
+##### [목차로 이동](#목차)
+
+### 참고문헌
 * [Spring bean 및 XML 사용법 - lalwr님](https://lalwr.blogspot.com/2018/04/spring-bean-xml.html)
 
 ##### [목차로 이동](#목차)
