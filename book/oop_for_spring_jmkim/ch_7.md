@@ -10,6 +10,7 @@
 		* [속성](#속성)
 		* [XML](#XML)
 		* [어노테이션](#어노테이션)
+			* @Resource vs <property>
 3. [AOP](#AOP)
 4. [PSA](#PSA)
 5. [참고](#참고)
@@ -339,10 +340,62 @@ expert004.xml 파일 마우스 우클릭
 	* [메인 코드](https://github.com/nara1030/spring-basic/tree/master/book/oop_for_spring_jmkim/src/ExpertSpring30/src/main/java/expert005)
 	* 테스트 코드
 
+- - -
+p281. @Resource vs <property>.
+
 ##### [목차로 이동](#목차)
 
 ## AOP
+스프링의 3대 프로그래밍 모델 중 두 번째는 AOP(Aspect-Oriented Programming), 즉 관점 지향 프로그래밍이다. 스프링 DI가 의존성(new)에 대한 주입이라면 스프링 AOP는 로직(code) 주입이라고 할 수 있다.
 
+<img src="./img/aop_1.jpg" width="350" height="250"></br>
+
+위 그림을 보면 입금, 출금, 이체 모듈에서 로깅, 보안, 트랜잭션 기능이 반복적으로 나타나는 것을 볼 수 있다. 이처럼 다수의 모듈에 공통적으로 나타나는 부분이 존재하는데, 이것을 횡단 관심사(cross-cutting concern)라고 한다. 다른 예를 들어보자.
+
+```java
+DB 커넥션 준비
+Statement 객체 준비
+
+try {
+	DB 커넥션 연결
+	Statement 객체 세팅
+	*****insert / update / delete / select 실행*****
+} catch ... {
+	예외 처리
+} catch ... {
+	예외 처리
+} finally {
+	DB 자원 반납
+}
+```
+
+이는 데이터베이스 연동 프로그램에서 연산에 관계없이 항상 반복해서 등장하는 코드인데, 이를 횡단 관심사라고 한다. 그리고 별표에 둘러싸인 부분을 핵심 관심사라고 한다.
+
+> 코드 = 핵심 관심사 + 횡단 관심사
+
+핵심 관심사는 모듈별로 다르지만 횡단 관심사는 반복/중복되어 나타나는 부분이다. 반복/중복은 분리해서 한 곳에서 관리하는 원칙이 있지만 AOP에서는 더 진보된 방법을 사용한다. 다음 코드를 수정해가면서 살펴보기로 한다.
+
+* 의사 코드(남자 / 여자)  
+	```txt
+	열쇠로 문을 열고 집에 들어간다.
+	컴퓨터로 게임을 한다. / 요리를 한다.
+	소등하고 잔다.
+	자물쇠를 잠그고 집을 나선다.
+	----
+	예외상황처리: 집에 불남 - 119에 신고한다.
+	```
+
+이를 구현한 코드는 [다음](https://github.com/nara1030/spring-basic/tree/master/book/oop_for_spring_jmkim/src/ExpertSpring30/src/main/java/aop001)과 같다. 한편 스프링 DI가 의존성에 대한 주입이라면 스프링 AOP는 로직 주입이라고 했는데, 로직은 어디에 주입할 수 있을까? 객체 지향에서 로직(코드)이 있는 곳은 당연히 메서드의 안쪽이다. 그럼 메서드에서 코드를 주입할 수 있는 곳은 몇 군데일까?
+
+<img src="./img/aop_2.jpg" width="300" height="250"></br>
+
+위에서 볼 수 있듯 총 다섯 군데다.
+
+* Around
+* Before
+* After
+* AfterReturning
+* AfterThrowing
 
 ##### [목차로 이동](#목차)
 
