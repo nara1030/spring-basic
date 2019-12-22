@@ -278,9 +278,9 @@ XML로 속성 주입 시 property의 name에 tire 이외의 단어를 치면 에
 
 애노테이션을 이용하기 위해 변경된 스프링 설정 파일(expert004.xml)에서 변경된 부분(빨간색 네모칸)을 살펴보자.
 
-<img src="./img/di_12.png" width="450" height="250"></br>
+<img src="./img/di_12.png" width="600" height="250"></br>
 
-기존 스프링 설정 파일 대비 추가된 부분은 다음 과정을 통해 추가할 수 있다.
+기존 설정 관련 추가된 부분은 다음 과정을 통해 추가할 수 있다.
 
 ```txt
 expert004.xml 파일 마우스 우클릭
@@ -354,7 +354,7 @@ expert004.xml 파일 마우스 우클릭
 ## 참고
 
 ### 어노테이션 속성 매칭 규칙
-<img src="./img/di_14.jpg" width="350" height="250"></br>
+<img src="./img/di_14.jpg" width="450" height="350"></br>
 
 위 매칭 규칙을 보면 두 가지를 확인할 수 있다.
 
@@ -366,29 +366,31 @@ expert004.xml 파일 마우스 우클릭
 | 파일 | 코드 |
 | -- | -- |
 | Car.java | @Autowired Tire tire; |
-| expert.xml | <bean class="expert004.AmericaTire"></bean> |
+| expert.xml | `<bean class="expert004.AmericaTire"></bean>` |
 | AmericaTire.java | public class AmericaTire implements Tire |
 
 다른 사례들의 경우에도 매칭 여부를 판단해볼 수 있다.
 
-* 사례-1: O  
-	| 파일 | 코드 |
-	| -- | -- |
-	| Car.java | @Autowired Tire tire; |
-	| expert.xml | <bean id="usaTire" class="expert004.AmericaTire"></bean> |
-* 사례-2: X  
-	| 파일 | 코드 |
-	| -- | -- |
-	| Car.java | @Autowired Tire tire; |
-	| expert.xml | <bean class="expert004.KoreaTire"></bean> |
-	| | <bean class="expert004.AmericaTire"></bean> |
-* 사례-3: O  
-	| 파일 | 코드 |
-	| -- | -- |
-	| Door.java | public class Door { } |
-	| Car.java | @Autowired Tire tire; |
-	| expert.xml | <bean class="expert004.KoreaTire"></bean> |
-	| | <bean id="tire" class="expert004.Door"></bean> |	
+#### 사례-1: O
+| 파일 | 코드 |
+| -- | -- |
+| Car.java | @Autowired Tire tire; |
+| expert.xml | `<bean id="usaTire" class="expert004.AmericaTire"></bean>` |
+
+#### 사례-2: X
+| 파일 | 코드 |
+| -- | -- |
+| Car.java | @Autowired Tire tire; |
+| expert.xml | `<bean class="expert004.KoreaTire"></bean>` |
+| | `<bean class="expert004.AmericaTire"></bean>` |
+
+#### 사례-3: O
+| 파일 | 코드 |
+| -- | -- |
+| Door.java | public class Door { } |
+| Car.java | @Autowired Tire tire; |
+| expert.xml | `<bean class="expert004.KoreaTire"></bean>` |
+| | `<bean id="tire" class="expert004.Door"></bean>` |	
 
 ##### [목차로 이동](#목차)
 
