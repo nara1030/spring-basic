@@ -10,7 +10,7 @@
 		* [속성](#속성)
 		* [XML](#XML)
 		* [어노테이션](#어노테이션)
-			* @Resource vs <property>
+			* @Resource vs `<property>`
 3. [AOP](#AOP)
 4. [PSA](#PSA)
 5. [참고](#참고)
