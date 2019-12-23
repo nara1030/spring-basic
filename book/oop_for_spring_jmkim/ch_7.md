@@ -539,9 +539,10 @@ aop001 코드에 비해 [aop003 코드](https://github.com/nara1030/spring-basic
 ### 참고문헌
 * [필자 블로그](https://expert0226.tistory.com/category/%EA%B0%95%EC%A2%8C/Spring%203.0)
 * [Spring bean 및 XML 사용법 - lalwr님](https://lalwr.blogspot.com/2018/04/spring-bean-xml.html)
+* [Spring-AOP, Proxy란? - Wan Blog](https://minwan1.github.io/2017/10/29/2017-10-29-Spring-AOP-Proxy/)
 * [AOP 시작하기 - 이동욱님](https://github.com/jojoldu/blog-code/tree/master/aop)
-* 리플렉션
 - - -
+* [리플렉션](https://github.com/nara1030/ThisIsJava/blob/master/docs/etc/polymorphism.md)
 * [스프링 공식 문서](https://docs.spring.io/spring/docs/)
 
 ##### [목차로 이동](#목차)
