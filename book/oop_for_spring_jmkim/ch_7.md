@@ -447,13 +447,34 @@ try {
 ##### [목차로 이동](#목차)
 
 ### 이론
-앞의 예제에 대해 좀 더 살펴보자. aop001 코드에 비해 aop002 코드의 양이 상당히 많이 늘어났음을 알 수 있다. 하지만 주목할 것은 `Boy.java`의 코드에서 횡단 관심사는 모두 사라지고 핵심 관심사만 남았다는 점이다. 즉 개발할 때는 한 개의 `Boy.java`를 4개의 파일로 분할해서 개발해야 하지만 추가 개발과 유지보수 관점에서 보면 무척 유리하다. 또한 AOP를 적용함으로써 `Boy.java`에 단일 책임 원칙(SRP)이 자연스럽게 적용되었다.
+앞의 예제에 대해 좀 더 살펴보자.
+
+<img src="./img/aop_6.png" width="600" height="700"></br>
+
+aop001 코드에 비해 [aop003 코드](https://github.com/nara1030/spring-basic/tree/master/book/oop_for_spring_jmkim/src/ExpertSpring30/src/main/java/aop003)의 양이 상당히 많이 늘어났음을 알 수 있다. 하지만 주목할 것은 `Boy.java`의 코드에서 횡단 관심사는 모두 사라지고 핵심 관심사만 남았다는 점이다. 즉 개발할 때는 한 개의 `Boy.java`를 4개의 파일로 분할해서 개발해야 하지만 추가 개발과 유지보수 관점에서 보면 무척 유리하다. 또한 AOP를 적용함으로써 `Boy.java`에 단일 책임 원칙(SRP)이 자연스럽게 적용되었다.
 
 <img src="./img/aop_5.jpg" width="700" height="300"></br>
 
-위 그림은 AOP를 통해 런타임에 로직이 주입되는 것을 나타낸다. 예제의 실행 결과 역시 @Before로 만들어진 before 메서드가 런타임에 위 그림에서처럼 주입되는 것을 보여주고 있다.
+위 그림은 AOP를 통해 런타임에 로직이 주입되는 것을 나타낸다. 예제의 실행 결과 역시 @Before로 만들어진 before 메서드가 런타임에 위 그림에서처럼 주입되는 것을 보여주고 있다. 결론적으로 AOP 적용 전과 적용 후는 아래와 같이 정리할 수 있다.
 
+* 기존 자바 코드(`Boy.java`와 `Girl.java`)에서 횡단 관심사 제거(∵ 중복 제거)
+* 공통 인터페이스(`Person.java`) 구현(∵ 스프링 AOP가 인터페이스 기반으로 작동하기 때문)
+	* 예외적으로 CGLIB 라이브러리 사용하면 인터페이스 없이도 AOP 적용 가능하지만 권장하지 않음
+* 횡단 관심사는 한 곳(`MyAspect.java`)에서 처리
+* `aop003.xml`에서 빈 설정
+	* 객체의 생성(뿐 아니라 생명주기 전반에 걸친 빈의 소멸까지)과 의존성 주입을 스프링 프레임워크에 위임하기 위해
+	* AOP 적용 대상: `aBoy` 빈, `aGirl` 빈
+	* AOP의 Aspect: `MyAspect` 빈
 
+또한 XML 설정 파일에서 `<aop:aspectj-autoproxy />`을 추가해주었다. 이는 한마디로 프록시 패턴을 이용해 횡단 관심사를 핵심 관심사에 주입하는 것이다.
+
+<img src="./img/aop_7.png" width="600" height="250"></br>
+
+결국, `<aop:aspectj-autoproxy />`는 스프링 프레임워크에게 AOP 프록시를 사용하라고 알려주는 지시자인 것이다. 정리하면 스프링 AOP는 다음 세 문장으로 요약할 수 있다.
+
+* 스프링 AOP는 인터페이스(interface) 기반이다.
+* 스프링 AOP는 프록시(proxy) 기반이다.
+* 스프링 AOP는 런타임(runtime) 기반이다.
 
 ##### [목차로 이동](#목차)
 
@@ -511,6 +532,8 @@ try {
 ##### [목차로 이동](#목차)
 
 ### 참고문헌
+* [필자 블로그](https://expert0226.tistory.com/category/%EA%B0%95%EC%A2%8C/Spring%203.0)
 * [Spring bean 및 XML 사용법 - lalwr님](https://lalwr.blogspot.com/2018/04/spring-bean-xml.html)
+* 리플렉션
 
 ##### [목차로 이동](#목차)
