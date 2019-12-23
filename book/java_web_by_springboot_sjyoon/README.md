@@ -2,7 +2,9 @@
 =====
 윤석진 지음, 제이펍
 
-* [예제 코드](https://github.com/thecodinglive/JPub-JavaWebService)
+* 예제 코드
+	* [1~11장](https://github.com/thecodinglive/JPub-JavaWebService)
+	* [12장](https://github.com/thecodinglive/memberApp)
 * [독자 Q&A](https://github.com/thecodinglive/JPub-JavaWebService/issues)
 * 저자 이메일: darkandark90@gmail.com
 - - -
