@@ -343,7 +343,7 @@ expert004.xml 파일 마우스 우클릭
 	* 테스트 코드
 
 - - -
-p281. @Resource vs <property>.
+p281. @Resource vs `<property>`.
 
 ##### [목차로 이동](#목차)
 
@@ -476,6 +476,11 @@ aop001 코드에 비해 [aop003 코드](https://github.com/nara1030/spring-basic
 * 스프링 AOP는 프록시(proxy) 기반이다.
 * 스프링 AOP는 런타임(runtime) 기반이다.
 
+- - -
+위의 인터페이스는 자바 고유명사, 즉 추상클래스는 해당사항이 없는 것인가?
+
+* [참고](https://interwater.tistory.com/entry/Spring-AOP)
+
 ##### [목차로 이동](#목차)
 
 ### 용어
@@ -534,6 +539,9 @@ aop001 코드에 비해 [aop003 코드](https://github.com/nara1030/spring-basic
 ### 참고문헌
 * [필자 블로그](https://expert0226.tistory.com/category/%EA%B0%95%EC%A2%8C/Spring%203.0)
 * [Spring bean 및 XML 사용법 - lalwr님](https://lalwr.blogspot.com/2018/04/spring-bean-xml.html)
+* [AOP 시작하기 - 이동욱님](https://github.com/jojoldu/blog-code/tree/master/aop)
 * 리플렉션
+- - -
+* [스프링 공식 문서](https://docs.spring.io/spring/docs/)
 
 ##### [목차로 이동](#목차)
