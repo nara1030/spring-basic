@@ -32,11 +32,6 @@
 ##### [목차로 이동](#목차)
 
 ## 참고
-* 스프링 관련 질의응답 제공
-	* [한국 스프링 사용자 모임(KSUG) 그룹스](https://groups.google.com/forum/#!forum/ksug)
-	* [봄싹 그룹스](https://groups.google.com/forum/#!forum/springsprout)
-* UML 관련 서적
-	* [UML for Java Programmers - Robert Cecil Martin](https://www.csd.uoc.gr/~hy252/references/UML_for_Java_Programmers-Book.pdf)
-	* [UML Distilled - Martin Folwer](https://martinfowler.com/books/uml.html)
+
 
 ##### [목차로 이동](#목차)
