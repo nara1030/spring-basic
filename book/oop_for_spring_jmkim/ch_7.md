@@ -494,7 +494,7 @@ aop001 코드에 비해 [aop003 코드](https://github.com/nara1030/spring-basic
 ##### [목차로 이동](#목차)
 
 #### Pointcut
-> @Before("execution(*** runSomething()**)")
+> @Before("execution(** * runSomething()**)")
 
 위 코드에서 볼드체 부분인 `* runSomething()`이 바로 Pointcut이다. 결국 Pointcut이라고 하는 것은 횡단 관심사를 적용할 타깃 메서드를 선택하는 지시자(메서드 선택 필터)인 것이다. 즉 Pointcut이란, `"타깃 클래스의 타깃 메서드 지정자"`라고 할 수 있다.
 
@@ -507,6 +507,7 @@ aop001 코드에 비해 [aop003 코드](https://github.com/nara1030/spring-basic
 * 예-1  
 	```java
 	public void aop002.Boy.runSomething()
+	
 	// 접근제한자가 public이고
 	// 리턴타입은 void이며
 	// aop002 패키지 밑의
