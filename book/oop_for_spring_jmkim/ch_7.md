@@ -19,6 +19,7 @@
 		* [Advice](#Advice)
 		* [Aspect](#Aspect)
 		* [Advisor](#Advisor)
+	* [POJO와 XML 기반 AOP](#POJO와-XML-기반-AOP)
 4. [PSA](#PSA)
 5. [참고](#참고)
 	* [어노테이션 속성 매칭 규칙](#어노테이션-속성-매칭-규칙)
@@ -155,7 +156,7 @@
 ##### [목차로 이동](#목차)
 
 #### XML
-지금까지는 스프링을 사용하지 않고 의존성을 주입했다. 이제는 스프링을 이용해 의존성을 주입해본다. 스프링을 통한 의존성 주입은 생성자를 통한 의존성 주입과 속성을 통한 의존성 주입을 모두 지원하는데, 여기서는 속성을 통한 의존성 주입만 살펴본다.
+지금까지는 스프링을 사용하지 않고 의존성을 주입했다([DI는 IoC를 사용하지 않아도 된다 by Jin-Wook Chung](https://github.com/nara1030/ThisIsJava/blob/master/docs/etc/DI_include_IoC.pdf)). 이제는 스프링을 이용해 의존성을 주입해본다. 스프링을 통한 의존성 주입은 생성자를 통한 의존성 주입과 속성을 통한 의존성 주입을 모두 지원하는데, 여기서는 속성을 통한 의존성 주입만 살펴본다.
 
 * 의사 코드  
 	```
@@ -494,9 +495,9 @@ aop001 코드에 비해 [aop003 코드](https://github.com/nara1030/spring-basic
 ##### [목차로 이동](#목차)
 
 #### Pointcut
-> @Before("execution(** * runSomething()**)")
+> @Before("execution(* runSomething())")
 
-위 코드에서 볼드체 부분인 `* runSomething()`이 바로 Pointcut이다. 결국 Pointcut이라고 하는 것은 횡단 관심사를 적용할 타깃 메서드를 선택하는 지시자(메서드 선택 필터)인 것이다. 즉 Pointcut이란, `"타깃 클래스의 타깃 메서드 지정자"`라고 할 수 있다.
+위 코드에서 `* runSomething()`이 바로 Pointcut이다. 결국 Pointcut이라고 하는 것은 횡단 관심사를 적용할 타깃 메서드를 선택하는 지시자(메서드 선택 필터)인 것이다. 즉 Pointcut이란, `"타깃 클래스의 타깃 메서드 지정자"`라고 할 수 있다.
 
 스프링 AOP만 보자면 Aspect를 메서드에만 적용할 수 있으니 타깃 메서드 지정자라는 말이 틀리지 않다. 그렇지만 AspectJ처럼 스프링 AOP 이전부터 있었고 지금도 유용하게 사용되는 다른 AOP 프레임워크에서는 메서드뿐만 아니라 속성 등에도 Aspect를 적용할 수 있기에 그것까지 고려한다면 `"Aspect 적용 위치 지정자(지시자)"`가 맞는 표현이다. 타깃 메서드 지정자에는 익히 알려진 정규식과 AspectJ 표현식 등을 사용할 수 있다. 간단하게 소개하면 다음과 같다.
 
@@ -534,22 +535,53 @@ aop001 코드에 비해 [aop003 코드](https://github.com/nara1030/spring-basic
 ##### [목차로 이동](#목차)
 
 #### JoinPoint
+Pointcut은 JoinPoint의 부분 집합이다. 다시 말해 Pointcut의 후보가 되는 모든 메서드들이 JoinPoint, 즉 Aspect 적용이 가능한 지점이 된다. 따라서 Aspect를 적용할 수 있는 지점 중 일부가 Pointcut이 되므로 Pointcut은 JoinPoint의 부분 집합인 셈이다.
 
+앞에서 스프링 AOP는 인터페이스를 기반으로 한다고 설명했다(`자세히..`). 인터페이스란 추상 메서드의 집합체라고 할 수 있다. 따라서 스프링 AOP는 메서드에만 적용 가능하다는 결론에 도달하게 된다. 결론적으로 스프링 AOP에서 JoinPoint란 스프링 프레임워크가 관리하는 빈의 모든 메서드의 해당한다.
+
+> public void before(JoinPoint joinPoint)
+
+위 코드에서 JoinPoint의 실체는 무엇일까? 이건 그때그때 다르다. `romeo.runSomething()` 메서드를 호출한 상태라면 JoinPoint는 romeo 객체의 runSomething() 메서드가 된다. `juliet.runSomething()` 메서드를 호출한 상태라면 JoinPoint는 juliet 객체의 runSomething() 메서드가 된다. 정리하면 아래와 같다.
+
+* 광의의 JoinPoint란 Aspect 적용이 가능한 모든 지점이다.
+* 협의의 JoinPoint란 호출된 객체의 메서드다.
+
+한편 JoinPoint 파라미터를 이용하면 **실행 시점에** 실제 호출된 메서드가 무엇인지, 실제 호출된 메서드를 소유한 객체가 무엇인지, 또 호출된 메서드의 파라미터는 무엇인지 등의 정보를 확인할 수 있다.
 
 ##### [목차로 이동](#목차)
 
 #### Advice
+Advice란 Pointcut에 적용할 로직, 즉 메서드를 의미하는데 여기에 더해 언제라는 개념까지 포함하고 있다. 즉 Advice란 Pointcut에 언제, 무엇을 적용할지 정의한 메서드다.
 
+```java
+@Before
+public void before(JoinPoint joinPoint) {
+	System.out.println("얼굴 인식 확인: 문을 개방하라");
+}
+```
+
+위 코드가 Advice인데, 보면 지정된 Pointcut이 시작되기 전(@Before)에 before() 메서드를 실행하라고 되어 있음을 확인할 수 있다.
 
 ##### [목차로 이동](#목차)
 
 #### Aspect
+AOP에서 Aspect는 여러 개의 Advice와 여러 개의 Pointcut의 결합체를 의미하는 용어다.
 
+> Aspect = Advice들 + Pointcut들
+
+Advice는 [언제(When), 무엇을(What)]를 의미하는 것이었다. Pointcut은 [어디에(Where)]를 의미하는 것이었다. 결국 Aspect는 [When, Where, What(언제,  어디에, 무엇을)]이 된다. 위 예제를 기반으로 해석해보면 Pointcut인 `public void aop002.Boy.runSomething()` 메서드가 시작되기 전(@Before)에 before() 메서드를 실행하라는 의미다.
 
 ##### [목차로 이동](#목차)
 
 #### Advisor
+> Advisor = 한 개의 Advice + 한 개의 Pointcut
 
+Advisor는 스프링 AOP에서만 사용하는 용어이며 다른 AOP 프레임워크에서는 사용하지 않는다. 또한 스프링 버전이 올라가면서 이제는 쓰지 말라고 권고하는 기능이기도 하다. Aspect가 나왔기 때문에 하나의 Advice와 하나의 Pointcut만을 결합하는 Advisor를 사용할 필요가 없어졌기 때문이다.
+
+##### [목차로 이동](#목차)
+
+### POJO와 XML 기반 AOP
+지금까지는 AOP 설명의 편의를 위해 AOP 어노테이션을 사용했으나 여기선 이전 코드를 어노테이션 없이 POJO와 XML 설정 기반으로 변경해본다.
 
 ##### [목차로 이동](#목차)
 
