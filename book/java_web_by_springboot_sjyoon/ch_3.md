@@ -47,7 +47,7 @@ IoC와 의존성 주입 연관. p52.
 ##### [목차로 이동](#목차)
 
 ## 스프링 MVC 구조
-<img src="./img/ch_3_1.jpg" width="800" height="300"></br>
+<img src="./img/ch_3_1.jpg" width="700" height="300"></br>
 
 ##### [목차로 이동](#목차)
 
