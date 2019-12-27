@@ -43,6 +43,8 @@
 	* [유료 버전과 무료 버전](https://m.blog.naver.com/PostView.nhn?blogId=skyvvv624&logNo=220797584851&proxyReferer=https%3A%2F%2Fwww.google.com%2F)
 	* [이클립스의 workspace와 인텔리제이의 project](https://jojoldu.tistory.com/334)
 * Gradle
-
+	* [Gradle 간단 사용하기 - slowstarter](https://joochang.tistory.com/80)
+	* [Gradle 기반의 Java 프로젝트에서 로컬 .JAR 라이브러리 추가하기 - 지단로보트](https://jsonobject.tistory.com/222)
+	* [Maven 사용자를 위한 Gradle의 간단 사용법 - 와이케이의 마구잡이](https://yookeun.github.io/java/2015/02/09/java-gradle/)
 
 ##### [목차로 이동](#목차)
