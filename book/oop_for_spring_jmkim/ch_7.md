@@ -23,7 +23,7 @@
 4. [PSA](#PSA)
 5. [참고](#참고)
 	* [어노테이션 속성 매칭 규칙](#어노테이션-속성-매칭-규칙)
-	* XML vs 어노테이션
+	* [어노테이션 관련 논쟁](#어노테이션-관련-논쟁)
 	* [참고문헌](#참고문헌)
 
 ## 개요
@@ -630,6 +630,11 @@ Advisor는 스프링 AOP에서만 사용하는 용어이며 다른 AOP 프레임
 | Car.java | @Autowired Tire tire; |
 | expert.xml | `<bean class="expert004.KoreaTire"></bean>` |
 | | `<bean id="tire" class="expert004.Door"></bean>` |	
+
+##### [목차로 이동](#목차)
+
+### 어노테이션 관련 논쟁
+<img src="./img/java_annotation.png" width="300" height="600"></br>
 
 ##### [목차로 이동](#목차)
 
