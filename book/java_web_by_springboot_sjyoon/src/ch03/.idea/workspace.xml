@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="61052d1b-f2a9-4fce-8917-e43faa880e29" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="FxmlFile" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1VeNxmciwSmfOfToDadbZ6nqKtZ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="RunManager" selected="Application.ConfigImportSpringApp">
+    <configuration name="BasicApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="basic.BasicApp" />
+      <module name="ch03.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="basic.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ConfigImportSpringApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="info.thecodinglive.javaConfig.ConfigImportSpringApp" />
+      <module name="ch03.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="info.thecodinglive.javaConfig.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JavaConfigSpringApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="info.thecodinglive.javaConfig.JavaConfigSpringApp" />
+      <module name="ch03.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="info.thecodinglive.javaConfig.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="XmlSpringApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="info.thecodinglive.XmlSpringApp" />
+      <module name="ch03.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="info.thecodinglive.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.ConfigImportSpringApp" />
+        <item itemvalue="Application.JavaConfigSpringApp" />
+        <item itemvalue="Application.XmlSpringApp" />
+        <item itemvalue="Application.BasicApp" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="61052d1b-f2a9-4fce-8917-e43faa880e29" name="Default Changelist" comment="" />
+      <created>1577609849961</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1577609849961</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="549" y="168" key="FileChooserDialogImpl" timestamp="1577683456268">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="549" y="168" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1577683456268" />
+    <state width="1238" height="396" key="GridCell.Tab.0.bottom" timestamp="1577870818325">
+      <screen x="1920" y="0" width="2560" height="1400" />
+    </state>
+    <state width="1238" height="396" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.2560.1400@1920.0.2560.1400" timestamp="1577870818325" />
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1577683458720" />
+    <state width="1238" height="396" key="GridCell.Tab.0.center" timestamp="1577870818325">
+      <screen x="1920" y="0" width="2560" height="1400" />
+    </state>
+    <state width="1238" height="396" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.2560.1400@1920.0.2560.1400" timestamp="1577870818325" />
+    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1577683458720" />
+    <state width="1238" height="396" key="GridCell.Tab.0.left" timestamp="1577870818325">
+      <screen x="1920" y="0" width="2560" height="1400" />
+    </state>
+    <state width="1238" height="396" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.2560.1400@1920.0.2560.1400" timestamp="1577870818325" />
+    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1577683458720" />
+    <state width="1238" height="396" key="GridCell.Tab.0.right" timestamp="1577870818325">
+      <screen x="1920" y="0" width="2560" height="1400" />
+    </state>
+    <state width="1238" height="396" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.2560.1400@1920.0.2560.1400" timestamp="1577870818325" />
+    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1577683458720" />
+    <state x="3341" y="342" key="SettingsEditor" timestamp="1577863262601">
+      <screen x="1920" y="0" width="2560" height="1400" />
+    </state>
+    <state x="3341" y="342" key="SettingsEditor/0.0.1536.824/1920.0.2560.1400@1920.0.2560.1400" timestamp="1577863262601" />
+    <state x="3532" y="524" key="com.intellij.ide.util.TipDialog" timestamp="1577863370080">
+      <screen x="1920" y="0" width="2560" height="1400" />
+    </state>
+    <state x="3532" y="524" key="com.intellij.ide.util.TipDialog/0.0.1536.824/1920.0.2560.1400@1920.0.2560.1400" timestamp="1577863370080" />
+  </component>
+</project>
