@@ -22,6 +22,7 @@
 * 한글 깨짐
 	* [스프링 UTF8 한글 설정하기 - 권희정님](https://gmlwjd9405.github.io/2019/01/01/spring-utf8.html)
 	* [Encoding and Servlet API: setContentType or setCharacterEncoding](https://stackoverflow.com/questions/4864899/encoding-and-servlet-api-setcontenttype-or-setcharacterencoding)
+	* [인텔리제이 한글 깨짐 - 손가락귀신님](https://www.oops4u.com/2451)
 * .
 
 ##### [목차로 이동](#목차)
