@@ -4,7 +4,8 @@
 - - -
 ## 목차
 1. [교재 및 강의](#교재-및-강의)
-2. [참고](#참고)
+2. [관련 인덱스 정리](#관련-인덱스-정리)
+3. [참고](#참고)
 
 ## 교재 및 강의
 * 교재
@@ -14,6 +15,14 @@
 * 강의
 	* [예제로 배우는 스프링 입문](https://github.com/nara1030/spring-basic/blob/master/lecture/spring_basic_ksbaek/%EC%98%88%EC%A0%9C%EB%A1%9C%20%EB%B0%B0%EC%9A%B0%EB%8A%94%20%EC%8A%A4%ED%94%84%EB%A7%81%20%EC%9E%85%EB%AC%B8.md)
 	* [스프링 부트로 웹 서비스 구축하기 시리즈 - 이동욱님](https://github.com/jojoldu/springboot-webservice)
+
+##### [목차로 이동](#목차)
+
+## 관련 인덱스 정리
+* 한글 깨짐
+	* [스프링 UTF8 한글 설정하기 - 권희정님](https://gmlwjd9405.github.io/2019/01/01/spring-utf8.html)
+	* [Encoding and Servlet API: setContentType or setCharacterEncoding](https://stackoverflow.com/questions/4864899/encoding-and-servlet-api-setcontenttype-or-setcharacterencoding)
+* .
 
 ##### [목차로 이동](#목차)
 

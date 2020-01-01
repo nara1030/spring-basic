@@ -6,7 +6,7 @@
 2. [서블릿 내부 동작](#서블릿-내부-동작)
 	* [서블릿의 생명주기](#서블릿의-생명주기)
 	* [서블릿 초기화](#서블릿-초기화)
-3. 서블릿 활용
+3. [서블릿 활용](#서블릿-활용)
 	* HTTP 요청과 응답
 	* 멀티파트
 4. 서블릿 관련 객체들
@@ -150,6 +150,11 @@ public class InitServlet extends HttpServlet {
 
 ##### [목차로 이동](#목차)
 
+## 서블릿 활용
+
+
+##### [목차로 이동](#목차)
+
 ## 디자인 패턴 활용
 ### Java EE 패턴
 Java EE 패턴은 자바 기반의 엔터프라이즈 웹 애플리케이션 개발을 위한 패턴이다. GoF의 디자인 패턴이 애플리케이션 개발 시에 공통적으로 겪게 되는 문제에 대한 해결책을 제시한다면 Java EE 패턴은 자바 웹 개발 시에 겪는 문제를 해결한다.
@@ -224,5 +229,6 @@ Front Controller 패턴은 컨트롤러가 공통 요청을 먼저 수행하고 
 * [Servlet의 이해 및 간단 예제 - 구루비](http://wiki.gurubee.net/pages/viewpage.action?pageId=26740202)
 * [서블릿 기초 - 장인개발자를 꿈꾸는 :: 기록하는 공간](https://devbox.tistory.com/entry/Servlet-%EC%84%9C%EB%B8%94%EB%A6%BF-%ED%95%84%ED%84%B0%EC%99%80-%EC%9D%B4%EB%B2%A4%ED%8A%B8)
 * [서블릿 컨테이너와 스프링 컨테이너 by Wan Blog](https://minwan1.github.io/2017/10/08/2017-10-08-Spring-Container,Servlet-Container/)
+* [JSP Tutorial - javatpoint](https://www.javatpoint.com/jsp-tutorial)
 
 ##### [목차로 이동](#목차)
