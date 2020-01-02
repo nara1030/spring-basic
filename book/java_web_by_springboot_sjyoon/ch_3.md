@@ -19,12 +19,13 @@
 		* [어노테이션 설정 시 빈 생명주기 제어](#어노테이션-설정-시-빈-생명주기-제어)
 3. [스프링 MVC](#스프링-MVC)
 	* [스프링 MVC 구조](#스프링-MVC-구조)
-	* 스프링 MVC 설정
+	* [스프링 MVC 설정](#스프링-MVC-설정)
 	* DispatcherServlet 설정
 	* 컨트롤러와 뷰
 	* 인터셉터
 4. [참고](#참고)
 	* [Gradle 설정 방법](#Gradle-설정-방법)
+	* [리플렉션](https://github.com/nara1030/ThisIsJava/blob/master/docs/etc/polymorphism.md)
 
 ## 빈과 컨테이너
 **스프링**은 엔터프라이즈 애플리케이션을 개발하기에 적합한 객체 관리를 해주는 빈 컨테이너 프레임워크다. 스프링을 더 잘 이해하기 위해서는 프레임워크의 역사에 관해 간략히 두 단계로 살펴볼 필요가 있다. 먼저 그 시작은 EJB였다.
@@ -211,13 +212,70 @@ context.close();
 	```
 	* applicationContext.xml과 같은 XML 파일을 사용하지 않고 자바 클래스에서 설정할 때는 Configuration 어노테이션을 클래스 상단에 추가해서 이 클래스가 빈 설정 정보가 포함된 클래스임을 명시
 	* 기존 XML에서 사용했던 `<bean>` 태그들은 @Bean 어노테이션으로 대체
-* @Import
-	* .
+* @Import  
+	```java
+	// 패키지명 및 임포트 생략(∴ 모두 public)
+	public class Company {
+		private String name;
+		
+		Company(String name) {
+			this.name = name;
+		}
+		
+		public String getName() {
+			System.out.println(name);
+			return name;
+		}
+	}
+	
+	@Configuration
+	public class CompanyConfig {
+		@Bean
+		public Company company() {
+			return new Company("jpub");
+		}
+	}
+	
+	@Configuration
+	@Import(CompanyConfig.class);	// 추가
+	public class BeanConfig {
+		// 생략
+	}
+	```
+	* Company 클래스 추가 후, 다른 설정 파일에서 빈 설정(BeanConfig가 아닌 CompanyConfig에서 빈 설정)
+	* 설정이 많은 경우 설정 내용을 파일별로 분리하고 Import 어노테이션 사용해 적용 가능
+
+한편 BeanConfig 클래스의 설정 이용해 실행하는 클래스는 다음과 같다.
+
+```java
+// 패키지명 및 임포트 생략
+public class JavaConfigSpringApp {
+	public static void main(String[] args) {
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+		context.register(BeanConfig.class);
+		context.refresh();
+		
+		WorkService yourWorkService = context.getBean("yourWorkService", WorkService.class);
+		yourWorkService.askWork();
+		
+		context.close();
+	}
+}
+```
+
+@Bean 어노테이션으로 클래스들을 빈으로 등록한 경우 AnnotationConfigApplicationContext를 사용해서 로드할 수 있다. AnnotationConfigApplicationContext의 인스턴스를 생성한 뒤에 빈 설정 정보가 담겨져 있는 BeanConfig 클래스 파일을 등록하고 AnnotationConfigApplicationContext를 refresh해준다. 그 뒤에는 XML 설정과 동일하게 getBean 메서드를 사용해 빈으로 등록된 클래스들을 사용 가능하다.
 
 ##### [목차로 이동](#목차)
 
 #### 어노테이션 설정 시 빈 생명주기 제어
-어노테이션 설정을 했을 때도 XML 설정과 같이 초기화와 종료 시에 callback 메서드를 추가할 수 있다.
+어노테이션 설정을 했을 때도 XML 설정과 같이 초기화와 종료 시에 callback 메서드를 추가할 수 있다. XML 설정과 대응시켜 보면 아래와 같다.
+
+| XML 설정 | Java Config 설정 |
+| -- | -- |
+| init-method | @PostConstruct |
+| destroy-method | @PreDestroy |
+
+정리하면 초기화 시에 호출될 메서드(예. `onCreated()`)에 @PostConstruct 어노테이션을 추가하면 빈이 초기화될 때 호출된다. 또한 종료 시에는 @PreDestroy 어노테이션을 추가하면 빈이 소멸되기 전 호출된다.
 
 ##### [목차로 이동](#목차)
 
@@ -226,8 +284,22 @@ context.close();
 
 ##### [목차로 이동](#목차)
 
-## 스프링 MVC 구조
+### 스프링 MVC 구조
 <img src="./img/ch_3_1.jpg" width="700" height="300"></br>
+
+추후 정리. [참고](https://gmlwjd9405.github.io/2018/10/29/web-application-structure.html).
+
+##### [목차로 이동](#목차)
+
+### 스프링 MVC 설정
+스프링 MVC를 사용하기 위해서 필요한 의존성은 스프링 코어와 스프링 MVC다.
+
+```txt
+"org.springframework:spring-core:4.1.6"
+"org.springframework:spring-web:4.1.6"
+```
+
+떄때로 스프링 코어 대신 스프링 콘텍스트를 추가하는 경우도 있는데, 스프링 콘텍스트가 스프링 코어에 대한 의존성을 가지고 있어서 둘 중 어떤 것을 사용해도 관계는 없다(권장하진 않음). 한편 스프링 콘텍스트 모듈처럼 스프링 웹 모듈도 스프링 코어 모듈에 의존성을 가지고 있다.
 
 ##### [목차로 이동](#목차)
 
@@ -250,5 +322,11 @@ context.close();
 추후 정리.
 
 * [Could not find method leftShift..](https://stackoverflow.com/questions/55793095/could-not-find-method-leftshift-for-arguments-after-updating-studio-3-4)
+- -
+* 기초
+	* [스프링 + 메이븐](https://aristatait.tistory.com/65?category=698195)
+	* [스프링 + 그래들](https://aristatait.tistory.com/66)
+	* [Gradle 프로젝트 기본 설정](https://smallgiant.tistory.com/25)
+* [Gradle 멀티 프로젝트 관리](https://jojoldu.tistory.com/123?category=721560)
 
 ##### [목차로 이동](#목차)
