@@ -10,7 +10,8 @@ B. 자바 8 람다와 인터페이스 스펙 변화
 	* [메서드 반환값으로 람다 사용](#메서드-반환값으로-람다-사용)
 3. [자바 8](#자바-8)
 	* [자바 8에서 제공하는 함수형 인터페이스](#자바-8에서-제공하는-함수형-인터페이스)
-	* 컬렉션 스트림에서 람다 사용
+	* [컬렉션 스트림에서 람다 사용](#컬렉션-스트림에서-람다-사용)
+	* 메서드 레퍼런스와 생성자 레퍼런스
 4. [참고](#참고)
 
 ## 개요
@@ -207,14 +208,152 @@ public class B009 {
 | Function<T, R> | R apply(T t) | 입력을 받아서 출력할 수 있는 인터페이스 |
 | Predicate<T> | Boolean test(T t) | 입력을 받아 참/거짓을 단정할 수 있는 인터페이스 |
 | UnaryOperator<T> | T apply(T t) | 단항(Unary) 연산할 수 있는 인터페이스 |
+| BiConsumer<T> | void accept(T t, U u) | 이항 소비자 인터페이스 |
+| BiFunction<T, U, R> | R apply(T t, U u) | 이항 함수 인터페이스 |
+| BiPredicate<T, U> | Boolean test(T t, U u) | 이항 단정 인터페이스 |
+| BinaryOperator<T, T> | T apply(T t, T t) | 이항 연산 인터페이스 |
 
 ```java
 
 ```
 
+이 외에도 `java.util.function` 패키지에서는 총 43개의 함수형 인터페이스를 제공한다.
+
+##### [목차로 이동](#목차)
+
+### 컬렉션 스트림에서 람다 사용
+람다는 다양한 용도가 있지만 그 중에서도 컬렉션 스트림을 위한 기능에 크게 초점이 맞춰져 있다. 예제로 `미성년자 출입 제한 소스`를 살펴본다.
+
+* for 구문 사용  
+	```java
+	public class B011 {
+		public static void main(String[] args) {
+			Integer[] ages = {20, 25, 18, 27, 30, 21, 17, 19, 34, 28};
+
+			for (int i = 0; i < ages.length; i++) {
+				if (ages[i] < 20) {
+					System.out.format("Age %d!!! Can't enter\n", ages[i]);
+				}
+			}
+		}
+	}
+	```
+* forEach 구문 사용  
+	```java
+	public class B012 {
+		public static void main(String[] args) {
+			Integer[] ages = {20, 25, 18, 27, 30, 21, 17, 19, 34, 28};
+
+			for (int age : ages) {
+				if (age < 20) {
+					System.out.format("Age %d!!! Can't enter\n", age);
+				}
+			}
+		}
+	}
+	```
+	* 인덱스 사용 안함
+* 컬렉션 스트림 이용  
+	```java
+	import java.util.Arrays;
+
+	public class B013 {
+		public static void main(String[] args) {
+			Integer[] ages = {20, 25, 18, 27, 30, 21, 17, 19, 34, 28};
+			// 6번째 줄
+			Arrays.stream(ages)
+					.filter(age -> age < 20)
+					.forEach(age -> System.out.format("Age %d!!! Can't enter\n", age));
+		}
+	}
+	```
+	* 7번째 줄
+		* 기존 배열(`ages`)을 사용해 스트림을 얻기 위해 Arrays 클래스의 stream() 정적 메서드 사용
+	* 8번째 줄: 20세 미만인 경우를 선별(filter)해주세요
+		* filter 메서드는 SQL 구문의 where 절과 같은 역할 수행(∵ true/false 반환하는 조건 필요)
+		* 함수형 인터페이스 중 true/false를 반환하는 Predicate 함수형 인터페이스를 filter 메서드의 인자로 제공
+	* 9번째 줄: 선별된 각 요소에 대해 입장이 불가하다고 해주세요
+		* 스트림 내부 반복을 실행하는 forEach 메서드 사용
+		* forEach 구문은 전달된 인자를 소비하는 함수형 인터페이스, 즉 Consumer를 요구
+
+이처럼 스트림은 선언적으로 코딩할 수 있기 때문에 가독성을 취할 수 있다. 또한 메서드 체인 패턴을 이용해 최종 연산이 아닌 모든 중간 연산은 다시 스트림을 반환해 코드를 간략하게 작성할 수 있게 지원한다. 아래에 몇 개의 최종 연산을 활용하는 예제 코드를 추가한다.
+
+```java
+import java.util.Arrays;
+
+public class B014 {
+    public static void main(String[] args) {
+        Integer[] ages = {20, 25, 18, 27, 30, 21, 17, 19, 34, 28};
+
+        System.out.println(Arrays.stream(ages).count());
+
+        System.out.println(Arrays.stream(ages).mapToInt(age -> age).sum());
+        System.out.println(Arrays.stream(ages).mapToInt(age -> age).average());
+        System.out.println(Arrays.stream(ages).mapToInt(age -> age).min());
+        System.out.println(Arrays.stream(ages).mapToInt(age -> age).max());
+
+        System.out.println(Arrays.stream(ages).allMatch(age -> age > 20));
+        System.out.println(Arrays.stream(ages).allMatch(age -> age > 30));
+
+        System.out.println(Arrays.stream(ages).findFirst());
+        System.out.println(Arrays.stream(ages).findAny());
+
+        Arrays.stream(ages).sorted().forEach(System.out::println);
+    }
+}
+```
+
+실행결과는 다음과 같다.
+
+<img src="img/ch_b_2.png" width="100" height="300"></br>
+
+##### [목차로 이동](#목차)
+
+### 메서드 레퍼런스와 생성자 레퍼런스
+추후.
+
+```java
+import java.util.Arrays;
+import java.util.function.BiFunction;
+
+public class B015 {
+    public static void main(String[] args) {
+        Double[] nums = {1.0, 4.0, 9.0, 16.0, 25.0};
+
+        System.out.println("==== Lambda ====");
+        Arrays.stream(nums)
+                .map(num -> Math.sqrt(num))
+                .forEach(sqrtNum -> System.out.println(sqrtNum));
+
+        System.out.println("==== Method Reference ====");
+        Arrays.stream(nums)
+                .map(Math::sqrt)
+                .forEach(System.out::println);
+
+        BiFunction<Integer, Integer, Integer> bip_lambda = (a, b) -> a.compareTo(b);
+        BiFunction<Integer, Integer, Integer> bip_reference = Integer::compareTo;
+
+        System.out.println(bip_lambda.apply(10, 12));
+        System.out.println(bip_lambda.apply(10, 10));
+        System.out.println(bip_lambda.apply(10, 2));
+
+        System.out.println(bip_reference.apply(10, 12));
+        System.out.println(bip_reference.apply(10, 10));
+        System.out.println(bip_reference.apply(10, 2));
+    }
+}
+```
+
 ##### [목차로 이동](#목차)
 
 ## 참고
-
+* JAVA8 변경사항 - LichKing님
+	* [#1_람다 표현식](https://multifrontgarden.tistory.com/124?category=471239)
+	* [#2_함수형 인터페이스](https://multifrontgarden.tistory.com/125)
+	* [#3_메서드 레퍼런스](https://multifrontgarden.tistory.com/126?category=471239)
+	* [#4_스트림](https://multifrontgarden.tistory.com/128)
+	* [#5_Optional](https://multifrontgarden.tistory.com/131?category=471239)
+* [JAVA8 - 함수형 프로그래밍](https://swiftymind.tistory.com/108)
+* [JAVA8 - 스트림](https://effectivesquid.tistory.com/entry/Java-Stream%EC%9D%B4%EB%9E%80)
 
 ##### [목차로 이동](#목차)
