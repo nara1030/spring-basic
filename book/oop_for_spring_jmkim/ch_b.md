@@ -110,7 +110,7 @@ interface MyFunctionalInterface {
 }
 ```
 
-이를 사용자 정의 인터페이스라고 한다. 이때 인터페이스인 MyFunctionalInterface 위에 @FunctionalInterface 어노테이션을 붙이는 것은 옵션이다. 이 어노테이션이 붙은 경우 컴파일러는 인터페이스가 함수형 인터페이스의 조건에 맞는지 검사한다. 즉, 단 하나의 추상 메서드만을 갖고 있는지 확인한다.
+이를 사용자 정의 인터페이스라고 한다. 이때 인터페이스인 MyFunctionalInterface 위에 @FunctionalInterface 어노테이션을 붙이는 것은 옵션(**협업시 권장**)이다. 이 어노테이션이 붙은 경우 컴파일러는 인터페이스가 함수형 인터페이스의 조건에 맞는지 검사한다. 즉, 단 하나의 추상 메서드만을 갖고 있는지 확인한다.
 
 한편 위 코드를 아래와 같이 더 간소화할 수 있다.
 
@@ -214,7 +214,23 @@ public class B009 {
 | BinaryOperator<T, T> | T apply(T t, T t) | 이항 연산 인터페이스 |
 
 ```java
+import java.util.function.*;
 
+public class B010 {
+    public static void main(String[] args) {
+        Runnable run = () -> System.out.println("hello");
+        Supplier<Integer> sup = () -> 3 * 3;
+        Consumer<Integer> con = num -> System.out.println(num);
+        Function<Integer, String> fun = num -> "input: " + num;
+        Predicate<Integer> pre = num -> num > 10;
+        UnaryOperator<Integer> uOp = num -> num * num;
+
+        BiConsumer<String, Integer> bCon = (str, num) -> System.out.println(str + num);
+        BiFunction<Integer, Integer, String> bFun = (num1, num2) -> "add result: " + (num1 + num2);
+        BiPredicate<Integer, Integer> bPre = (num1, num2) -> num1 > num2;
+        BinaryOperator<Integer> b0p = (num1, num2) -> num1 - num2;
+    }
+}
 ```
 
 이 외에도 `java.util.function` 패키지에서는 총 43개의 함수형 인터페이스를 제공한다.
