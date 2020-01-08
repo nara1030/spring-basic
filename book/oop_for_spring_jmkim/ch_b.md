@@ -254,7 +254,7 @@ public class B010 {
 		}
 	}
 	```
-* forEach 구문 사용  
+* forEach 구문 사용: 인덱스 사용 안함  
 	```java
 	public class B012 {
 		public static void main(String[] args) {
@@ -268,7 +268,6 @@ public class B010 {
 		}
 	}
 	```
-	* 인덱스 사용 안함
 * 컬렉션 스트림 이용  
 	```java
 	import java.util.Arrays;
@@ -278,8 +277,8 @@ public class B010 {
 			Integer[] ages = {20, 25, 18, 27, 30, 21, 17, 19, 34, 28};
 			// 6번째 줄
 			Arrays.stream(ages)
-					.filter(age -> age < 20)
-					.forEach(age -> System.out.format("Age %d!!! Can't enter\n", age));
+				.filter(age -> age < 20)
+				.forEach(age -> System.out.format("Age %d!!! Can't enter\n", age));
 		}
 	}
 	```
@@ -321,7 +320,7 @@ public class B014 {
 
 실행결과는 다음과 같다.
 
-<img src="img/ch_b_2.png" width="100" height="300"></br>
+<img src="img/ch_b_2.png" width="150" height="300"></br>
 
 ##### [목차로 이동](#목차)
 
@@ -338,13 +337,13 @@ public class B015 {
 
         System.out.println("==== Lambda ====");
         Arrays.stream(nums)
-                .map(num -> Math.sqrt(num))
-                .forEach(sqrtNum -> System.out.println(sqrtNum));
+            .map(num -> Math.sqrt(num))
+            .forEach(sqrtNum -> System.out.println(sqrtNum));
 
         System.out.println("==== Method Reference ====");
         Arrays.stream(nums)
-                .map(Math::sqrt)
-                .forEach(System.out::println);
+            .map(Math::sqrt)
+            .forEach(System.out::println);
 
         BiFunction<Integer, Integer, Integer> bip_lambda = (a, b) -> a.compareTo(b);
         BiFunction<Integer, Integer, Integer> bip_reference = Integer::compareTo;
