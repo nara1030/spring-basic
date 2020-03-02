@@ -21,8 +21,8 @@
 	* [스프링 MVC 구조](#스프링-MVC-구조)
 	* [스프링 MVC 설정](#스프링-MVC-설정)
 	* [DispatcherServlet 설정](#DispatcherServlet-설정)
-	* 컨트롤러와 뷰
-	* 인터셉터
+	* [컨트롤러와 뷰](#컨트롤러와-뷰)
+	* [인터셉터](#인터셉터)
 4. [참고](#참고)
 	* [Gradle 설정 방법](#Gradle-설정-방법)
 	* [리플렉션](https://github.com/nara1030/ThisIsJava/blob/master/docs/etc/polymorphism.md)
@@ -409,7 +409,24 @@ public class JavaConfigSpringApp {
 ##### [목차로 이동](#목차)
 
 ### DispatcherServlet 설정
+DispatcherServlet을 등록하는 방법은 위에서 언급했던 `web.xml` 외에도 한 가지가 더 있다.
 
+* web.xml
+* javaConfig
+
+- - -
+* [@Bean vs @Component](https://galid1.tistory.com/494)
+
+##### [목차로 이동](#목차)
+
+### 컨트롤러와 뷰
+* [Spring MVC Tutorial](https://www.baeldung.com/spring-mvc-tutorial)
+* [Spring MVC 동작원리](https://galid1.tistory.com/527)
+
+##### [목차로 이동](#목차)
+
+### 인터셉터
+* [Filter와 Interceptor의 차이](https://supawer0728.github.io/2018/04/04/spring-filter-interceptor/)
 
 ##### [목차로 이동](#목차)
 
