@@ -313,17 +313,17 @@ public class JavaConfigSpringApp {
 		* 이 때(**요청 전**) 개발자가 작성한 비즈니스 로직에 대한 DAO, VO 등 객체들 생성
 		* DispatcherServlet이 여러 개일 경우 공통으로 사용할 Bean을 WebApplicationContext에 선언해두고 공유
 * 클라이언트 요청 후(→ Lazy Loading)
-	5. DispatcherServlet 생성
+	1. DispatcherServlet 생성
 		* 이는 클라이언트로부터 온 요청을 분석하여 알맞은 PageController에 전달하고 응답을 받음(→ Front Controller 역할)
 			* 실질적인 작업은 PageController에서 이루어짐
 		* 이러한 클래스들을 HandlerMapping, ViewResolver 클래스라 함
-	6. DispatcherServlet은 `servlet-context.xml`을 로드
-	7. **두 번째**(?!) Spring Container가 구동되며 요청에 맞는 PageController들이 동작
+	2. DispatcherServlet은 `servlet-context.xml`을 로드
+	3. **두 번째**(?!) Spring Container가 구동되며 요청에 맞는 PageController들이 동작
 		* 이 때 첫 번째 Spring Container가 구동되며 생성된 DAO, VO, ServiceImpl 클래스들과 협력
 
 이를 좀 더 자세히 이해하기 위해 Context 개념을 살펴보자.
 
-<img src="./img/ch_2_9.png" width="300" height="350"></br>
+<img src="./img/ch_2_9.png" width="350" height="350"></br>
 
 
 
