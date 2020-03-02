@@ -20,7 +20,7 @@
 3. [스프링 MVC](#스프링-MVC)
 	* [스프링 MVC 구조](#스프링-MVC-구조)
 	* [스프링 MVC 설정](#스프링-MVC-설정)
-	* DispatcherServlet 설정
+	* [DispatcherServlet 설정](#DispatcherServlet-설정)
 	* 컨트롤러와 뷰
 	* 인터셉터
 4. [참고](#참고)
@@ -288,22 +288,24 @@ public class JavaConfigSpringApp {
 <img src="./img/ch_3_1.jpg" width="700" height="300"></br>
 
 * DispatcherServlet이 요청을 받으면 그 요청을 처리할 수 있는 Handler의 이름을 HandlerMapping에게 물어봄
-	1. HandlerMapping은 요청 URL을 보고 Handler를 판단
+	1. HandlerMapping은 요청 URL을 보고 Handler(Controller)를 판단
 	2. 또한 Handler 실행 전에 전처리, 후처리로 실행해야 할 인터셉터 목록 결정
 	3. DispatcherServlet은 제어권을 Handler로 전달
 * Handler는 두 가지 역할을 함
 	1. 응답에 필요한 서비스를 호출(invoke)
 	2. 응답에서 렌더링해야 하는 View Name을 판단해서 DispatcherServlet에 전송
-* DispatcherServlet은 논리적인(?) View Name을 ViewResolver에 전달해서 응답에 필요한 View 생성
+* DispatcherServlet은 **논리적인** View Name을 ViewResolver에 전달해서 응답에 필요한 View 생성
+	* Logical view name + prefix/suffix → Physical view object
 * 해당 View에 Model과 컨트롤러를 전달해서(?) 응답 생성 후 클라이언트에 반환
 
 - - -
-[스프링 컨테이너의 동작 원리](https://asfirstalways.tistory.com/334)를 조금 더 자세히 설명하자면 아래와 같다.
+스프링 컨테이너는 Controller의 라이프사이클을 관리한다. 이에 관해를 조금 더 자세히 설명하자면 [아래](https://asfirstalways.tistory.com/334)와 같다.
 
 <img src="./img/ch_2_8.png" width="600" height="250"></br>
 
 * 클라이언트 요청 전
 	1. 웹 어플리케이션 실행 시 WAS(ex. Tomcat)가 `web.xml`을 로드(→ 배포)
+		* `web.xml`의 세 가지 설정: ContextLoaderListener, DispatcherServlet, encodingFilter
 	2. `web.xml`에 등록되어 있는 ContextLoaderListener 생성
 		* ContextLoaderListener 클래스는 ServletContextListener 인터페이스를 구현
 	3. 생성된 ContextLoaderListener는 `root-context.xml`을 로드
@@ -321,11 +323,75 @@ public class JavaConfigSpringApp {
 	3. **두 번째**(?!) Spring Container가 구동되며 요청에 맞는 PageController들이 동작
 		* 이 때 첫 번째 Spring Container가 구동되며 생성된 DAO, VO, ServiceImpl 클래스들과 협력
 
-이를 좀 더 자세히 이해하기 위해 Context 개념을 살펴보자.
+이를 좀 더 자세히 이해하기 위해 Context 개념을 살펴보자. 스프링은 계층 구조를 가지는 multi-context 환경을 구성할 수 있도록 해주며 크게 두 가지로 구분할 수 있다.
 
-<img src="./img/ch_2_9.png" width="350" height="350"></br>
+* ContextLoaderListener(`root-context`)
+	* 설정
+		1. 웹 애플리케이션의 실제 비즈니스 로직을 위한 Service layer 구성 Bean 설정
+		2. 해당 Service layer와 협력하는 Repository layer 구성 Bean 설정
+	* 참조(의존성)
+		1. 이 context에 등록되는 모든 Bean은 모든 context에서 사용 가능
+			* ∴ 웹 애플리케이션 전체에 적용해야 하는 기능 위치(ex. DB 연결, 로깅 등)
+		2. `servlet-context`에 등록된 Bean 이용 불가능
+			* `servlet-context`와 동일한 Bean이 있을 경우 Servlet Context Bean 우선
+	* 코드  
+		```xml
+		<!-- web.xml -->
+		<context-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath*:spring/context-*.xml</param-value>
+		</context-param>
+		```
+* DispatcherServlet(`servlet-context`; 웹 애플리케이션이 클라이언트의 요청을 받기 위한 진입점)
+	* 설정
+		1. 요청에 대한 처리를 해줄 Controller의 매핑 설정(HandlerMapping)
+		2. 요청 처리 후 View 처리를 어떻게 할 것인가에 대한 설정(ViewResolver)
+	* 참조
+		1. 이 context에 등록되는 Bean들은 `servlet-context`에서만 사용 가능
+			* 타 서블릿과 공유하기 위한 Bean들은 루트 웹 애플리케이션 컨텍스트에 등록 후 사용
+		2. DispatcherServlet은 자신만의 컨텍스트를 생성, 초기화 및 `root-context`를 찾아서 자신의 부모 컨텍스트로 이용
+	* 코드  
+		```xml
+		<!-- web.xml -->
+		<servlet>
+			<servlet-name>dispatcher</servlet-name>
+			<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+			<init-param>
+				<param-name>listings</param-name>
+				<param-value>false</param-value>
+			</init-param>
+			<load-on-startup>1</load-on-startup>
+		</servlet>
+		
+		<servlet-mapping>
+			<servlet-name>dispatcher</servlet-name>
+			<url-pattern>/</url-pattern>
+		</servlet-mapping>
+		```
+		
+즉 아래와 같은 클래스 위계를 가진다.
+		
+<img src="./img/ch_2_9.png" width="370" height="350"></br>
 
+사용 시 예를 통해 좀 더 구체적으로 설명하면 아래와 같다.
 
+<img src="./img/ch_2_10.png" width="550" height="250"></br>
+
+* 예를 들어, 쇼핑몰의 경우 의류/가구에 대한 요청을 별도로 처리 가능(→ DispatcherServlet)  
+  (각 요청 별로 DispatcherServlet 할당)
+* Controller가 공유하는 Bean들을 포함하는 Spring Container를 생성(→ ContextLoaderListener)  
+  (공유하는 Bean: Service, Dao, DataSource)
+	* 다시 한 번 언급하지만 DispatcherServlet에 의해 생성된 Bean은 ContextLoaderListener에 의해 생성된 Bean 참조 가능
+
+결과적으로 아래와 같은 구조를 갖게 된다.
+
+<img src="./img/ch_2_11.png" width="550" height="250"></br>
+
+- - -
+#### 참고
+1. [spring에서 context란 무엇인가](https://www.moongchi.dev/?p=205)
+2. [spring rootContext와 servletContext](https://nice2049.tistory.com/entry/spring-rootContext-%EA%B7%B8%EB%A6%AC%EA%B3%A0-servletContext-%EB%8C%80%ED%95%B4%EC%84%9C)
+3. [web.xml 설정 이해하기](https://gmlwjd9405.github.io/2018/10/29/web-application-structure.html)
 
 ##### [목차로 이동](#목차)
 
@@ -338,6 +404,11 @@ public class JavaConfigSpringApp {
 ```
 
 떄때로 스프링 코어 대신 스프링 콘텍스트를 추가하는 경우도 있는데, 스프링 콘텍스트가 스프링 코어에 대한 의존성을 가지고 있어서 둘 중 어떤 것을 사용해도 관계는 없다(권장하진 않음). 한편 스프링 콘텍스트 모듈처럼 스프링 웹 모듈도 스프링 코어 모듈에 의존성을 가지고 있다.
+
+##### [목차로 이동](#목차)
+
+### DispatcherServlet 설정
+
 
 ##### [목차로 이동](#목차)
 
