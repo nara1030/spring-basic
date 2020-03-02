@@ -71,7 +71,7 @@ REST의 핵심 개념으로 접근할 수 있고, 조작할 수 있는 모든 �
 
 * URI: 리소스를 표현  
 	```txt
-	// URI					| URI 설명
+	// URI					| 	URI 설명
 	// http://jpub.com/post		|	포스트 리소스의 집합 표현
 	// http://jpub.com/post/1		|	포스트 리소스의 집합 중 첫 번째 요소 표현
 	// http://jpub.com/post/1/comments	|	포스트 리소스의 집합 중 첫 번째 요소와 연관 있는 코멘트 표현
@@ -79,7 +79,14 @@ REST의 핵심 개념으로 접근할 수 있고, 조작할 수 있는 모든 �
 	```
 	* 리소스명은 동사가 아닌 명사 사용
 	* 리소스는 Collection과 Document로 표현 가능한데, Collection은 복수 사용
-* HTTP Method: 리소스에 대한 행위 표현
+* HTTP Method: 리소스에 대한 행위 표현  
+	```txt
+	// HTTP Method		| 설명
+	// GET / students	| 학생 목록 조회(리소스 조회)
+	// POST / students	| 학생 생성(리소스 생성)
+	// PUT / students/1	| 1번 학생 정보 업데이트(리소스 업데이트)
+	// DELETE / students/1	| 1번 학생 정보 삭제(리소스 삭제)
+	```
 
 ##### [목차로 이동](#목차)
 
