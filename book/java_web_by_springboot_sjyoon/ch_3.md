@@ -349,7 +349,8 @@ public class JavaConfigSpringApp {
 	* 참조
 		1. 이 context에 등록되는 Bean들은 `servlet-context`에서만 사용 가능
 			* 타 서블릿과 공유하기 위한 Bean들은 루트 웹 애플리케이션 컨텍스트에 등록 후 사용
-		2. DispatcherServlet은 자신만의 컨텍스트를 생성, 초기화 및 `root-context`를 찾아서 자신의 부모 컨텍스트로 이용
+		2. DispatcherServlet은 자신만의 컨텍스트를 생성, 초기화 
+			* `root-context`를 찾아서 자신의 부모 컨텍스트로 이용
 	* 코드  
 		```xml
 		<!-- web.xml -->
