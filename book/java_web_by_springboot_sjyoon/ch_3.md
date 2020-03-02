@@ -287,7 +287,45 @@ public class JavaConfigSpringApp {
 ### 스프링 MVC 구조
 <img src="./img/ch_3_1.jpg" width="700" height="300"></br>
 
-추후 정리. [참고](https://gmlwjd9405.github.io/2018/10/29/web-application-structure.html).
+* DispatcherServlet이 요청을 받으면 그 요청을 처리할 수 있는 Handler의 이름을 HandlerMapping에게 물어봄
+	1. HandlerMapping은 요청 URL을 보고 Handler를 판단
+	2. 또한 Handler 실행 전에 전처리, 후처리로 실행해야 할 인터셉터 목록 결정
+	3. DispatcherServlet은 제어권을 Handler로 전달
+* Handler는 두 가지 역할을 함
+	1. 응답에 필요한 서비스를 호출(invoke)
+	2. 응답에서 렌더링해야 하는 View Name을 판단해서 DispatcherServlet에 전송
+* DispatcherServlet은 논리적인(?) View Name을 ViewResolver에 전달해서 응답에 필요한 View 생성
+* 해당 View에 Model과 컨트롤러를 전달해서(?) 응답 생성 후 클라이언트에 반환
+
+- - -
+[스프링 컨테이너의 동작 원리](https://asfirstalways.tistory.com/334)를 조금 더 자세히 설명하자면 아래와 같다.
+
+<img src="./img/ch_2_8.png" width="600" height="250"></br>
+
+* 클라이언트 요청 전
+	1. 웹 어플리케이션 실행 시 WAS(ex. Tomcat)가 `web.xml`을 로드(→ 배포)
+	2. `web.xml`에 등록되어 있는 ContextLoaderListener 생성
+		* ContextLoaderListener 클래스는 ServletContextListener 인터페이스를 구현
+	3. 생성된 ContextLoaderListener는 `root-context.xml`을 로드
+		* ContextLoaderListener 클래스는 ApplicationContext 생성
+		* 스프링에서 말하는 WebApplicationContext는 ApplicationContext의 확장(∵ ApplicationContext를 상속)
+	4. `root-context.xml`에 등록되어 있는 Spring Container 구동
+		* 이 때(**요청 전**) 개발자가 작성한 비즈니스 로직에 대한 DAO, VO 등 객체들 생성
+		* DispatcherServlet이 여러 개일 경우 공통으로 사용할 Bean을 WebApplicationContext에 선언해두고 공유
+* 클라이언트 요청 후(→ Lazy Loading)
+	5. DispatcherServlet 생성
+		* 이는 클라이언트로부터 온 요청을 분석하여 알맞은 PageController에 전달하고 응답을 받음(→ Front Controller 역할)
+			* 실질적인 작업은 PageController에서 이루어짐
+		* 이러한 클래스들을 HandlerMapping, ViewResolver 클래스라 함
+	6. DispatcherServlet은 `servlet-context.xml`을 로드
+	7. **두 번째**(?!) Spring Container가 구동되며 요청에 맞는 PageController들이 동작
+		* 이 때 첫 번째 Spring Container가 구동되며 생성된 DAO, VO, ServiceImpl 클래스들과 협력
+
+이를 좀 더 자세히 이해하기 위해 Context 개념을 살펴보자.
+
+<img src="./img/ch_2_9.png" width="300" height="350"></br>
+
+
 
 ##### [목차로 이동](#목차)
 

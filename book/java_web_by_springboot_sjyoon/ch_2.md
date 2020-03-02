@@ -63,7 +63,7 @@
 ##### [목차로 이동](#목차)
 
 ## 서블릿의 생명주기
-서블릿은 자신만의 생명주기(life cycle)을 가지고 있고, 웹 애플리케이션 컨테이너에서 콘텍스트가 초기화되면 생명주기가 시작된다. 서블릿의 생명주기는 초기화(initialize), 서비스(service), 소멸(destroy)의 3단계로 구성되어 있다.
+서블릿은 자신만의 생명주기(life cycle)을 가지고 있고, **웹 애플리케이션 컨테이너에서 콘텍스트가 초기화되면 생명주기가 시작**된다. 서블릿의 생명주기는 초기화(initialize), 서비스(service), 소멸(destroy)의 3단계로 구성되어 있다.
 
 <img src="./img/ch_2_7.png" width="450" height="250"></br>
 
@@ -75,6 +75,8 @@
 * 소멸
 	* 서블릿 언로드
 	* 언로드는 런타임 오류 및 서블릿 컨테이너가 종료되었을 때 발생
+
+한편, [스프링 컨테이너의 동작 원리](https://github.com/nara1030/spring-basic/blob/master/book/java_web_by_springboot_sjyoon/ch_3.md#%EC%8A%A4%ED%94%84%EB%A7%81-MVC-%EA%B5%AC%EC%A1%B0)는 다음과 같다.
 
 ##### [목차로 이동](#목차)
 
