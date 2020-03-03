@@ -88,10 +88,95 @@ REST의 핵심 개념으로 접근할 수 있고, 조작할 수 있는 모든 �
 	// DELETE / students/1	| 1번 학생 정보 삭제(리소스 삭제)
 	```
 
+**리소스 식별**을 위해, 다시 말해 일관성 있는 구조화된 REST API를 만들고자 할 때 URI 템플릿을 사용하곤 한다. 스프링 MVC에서도 URI 템플릿을 지원하는데 [PathVariable을 사용](#스프링에서-URI-템플릿-활용)하면 된다.
+
+한편 **표현을 통한 리소스 처리**란 RESTful 리소스들은 추상화되어 있으므로(?) 형식에 자유로움을 말한다. 즉 XML, HTML, JSON 등 특정 형식을 가리지 않고 클라이언트에게 전달하기 전에 데이터를 직렬화해서 그 시점에 데이터의 상태에 대한 표현(?)을 해주면 된다. 다만 대부분의 웹 개발 특성상 클라이언트가 웹인 경우에는 JSON 데이터를 처리하는 것이 수월(?)하므로 최근에 대부분의 REST API에서는 JSON 포맷으로 응답하도록 REST API를 개발한다.
+
 ##### [목차로 이동](#목차)
 
 ## REST API 만들기
-* [@RestController vs @Controller](https://lkg3796.tistory.com/58)
+REST API를 클라이언트에게 제공하기 위해서는 클라이언트가 접근할 수 있는 엔트리 포인트, 진입점을 만들어야 한다. 이런 작업을 위해 스프링 MVC에 컨트롤러를 사용할 수 있다.
+
+1. [REST 컨트롤러 활용](#REST-컨트롤러-활용)
+2. [REST API에서 HTTP Method 사용](#REST-API에서-HTTP-Method-사용)
+3. [스프링에서 URI 템플릿 활용](#스프링에서-URI-템플릿-활용)
+
+- -
+#### 잘못된 REST 사용
+* GET/POST의 부적합한 사용
+* 자체 표현적이지 않음
+* HTTP 응답 코드 미사용
+
+#### REST 컨트롤러 활용
+> 클라이언트가 /basic/todo 경로로 요청을 보냈을 때 응답을 JSON으로 제공하는 API를 만들어 보자
+
+두 가지 클래스가 필요하다.
+
+* 모델 클래스: 데이터 담기
+* 컨트롤러 클래스: 요청(URL) 받아서 응답(JSON)
+
+상세 코드는 교재를 참고하고, 여기서는 Controller 클래스에서 두 가지를 짚고 넘어간다.
+
+* @RestController(SINCE 스프링4.1)
+	* @ResponseBody 사용 않고 REST API 생성 가능
+		* @Controller + @ResponseBody(SINCE 스프링3.1)  
+			```java
+			// 예제 코드 임포트 부분 발췌 
+			import org.springframework.web.bind.annotation.RequestMapping;
+			import org.springframework.web.bind.annotation.ResponseBody;	// 자동 추가(∵ RestController)
+			import org.springframework.web.bind.annotation.RestController;
+			```
+	* 실행 결과에 대한 처리를 위한 어노테이션
+		1. 실행 결과는 View를 거치지 않고 HTTP Response Body에 직접 입력
+		2. 응답에 실행 결과를 작성하게 된 상태에서 MappingJacksonHttpMessageConverter를 통해 JSON 형태로 결과 표현  
+			* 스프링3.1부터는 JSON 표현에 대한 별도의 메시지 컨버팅 설정을 하지 않아도 JAXB2와 Jackson 라이브러리만 클래스패스에 추가되어 있으면 JSON이 자동으로 변환
+			* 스프링 부트에서는 해당 라이브러리들을 이미 포함
+* AtomicLong  
+	```java
+	// 예제 코드 일부 발췌
+	import java.util.concurrent.atomic.AtomicLong;
+	
+	@RestController
+	@ResquestMapping(value = "/basic")
+	public class BasicController {
+		private final AtomicLong counter = new AtomicLong();
+		
+		@RequestMapping(value = "/todo")
+		public Todo basic() {
+			return new Todo(counter.incrementAndGet(), "라면사오기");
+		}
+	}
+	```
+	* 동시성 문제 처리를 위해 `java.util.concurrent.atomic` 패키지 추가(SINCE 자바1.5)
+		* AtomicLong을 사용하면 Long 타입 변수에 대해 thread-safe하게 처리 가능
+		* 만약 단순히 Long 타입으로 선언한다면 서로 다른 스레드에서 하나의 변수에 대해 값을 쓰거나 읽기 때문에 문제 발생
+	* 요청(해당 URL 호출)이 올 때마다 Todo 인스턴스 생성 후 id값을 증가시켜야 하므로 위와 같이 counter 선언(?)
+		* cf. static/Singleton
+
+- - -
+추가로 AtomicLong 예제.
+
+##### [목차로 이동](#목차)
+
+#### REST API에서 HTTP Method 사용
+
+
+##### [목차로 이동](#목차)
+
+#### 스프링에서 URI 템플릿 활용
+앞에서 일관성 있는 REST API를 만들기 위해 URI 템플릿(ex. PathVariable)을 사용한다고 언급했다. 그 필요성에 대해 좀 더 구체적으로 말하자면, GET/POST로도 파라미터를 전달하거나 원하는 결과를 얻을 수 있지만 해당 내용을 처리하는 URI 값 자체가 변화하지 않아서 URI 정보에 대한 가독성이 떨어지기 때문이다.
+
+스프링에서는 PathVariable을 이용해서 URI 템플릿을 구현할 수 있으며, 이때 Request Mapping은 URI 템플릿을 사용하므로 GET 메소드를 사용하고 URI는 `/todos/{입력받을 변수값}`이 된다. 그리고 파라미터는 아래와 같이 PathVariable 어노테이션을 표기해준다.
+
+```java
+// 교재 일부 발췌
+// 해당 API를 사용해본 적 없는 사람도 데이터 결과를 손쉽게 예측 가능
+@RequestMapping(value = "/todos/{todoId}", method = RequestMethod.GET)
+public Todo getPath(@PathVariable int todoId) {
+	// 중략
+	return todoMap.get(todoId);
+}
+```
 
 ##### [목차로 이동](#목차)
 
@@ -112,9 +197,14 @@ REST의 핵심 개념으로 접근할 수 있고, 조작할 수 있는 모든 �
 
 ## 참고
 * [REST API](https://github.com/baeharam/Must-Know-About-Frontend/blob/master/Notes/network/rest-api.md)
+* [@RestController vs @Controller](https://lkg3796.tistory.com/58)
+* [@RestController와 @ResponseBody](https://wondongho.tistory.com/76)
+* [AtomicLong](http://tutorials.jenkov.com/java-util-concurrent/atomiclong.html)
+* [Java Concurrency - AtomicLong Class](https://www.tutorialspoint.com/java_concurrency/concurrency_atomiclong.htm)
 - - -
 * [스프링 부트 + 리액트 개발 셋업 2018](https://start.goodtime.co.kr/2018/09/%EC%8A%A4%ED%94%84%EB%A7%81-%EB%B6%80%ED%8A%B8-%EB%A6%AC%EC%95%A1%ED%8A%B8-%EA%B0%9C%EB%B0%9C-%EC%85%8B%EC%97%85-2018/)
 * [리액트, 스프링 부트 연동 CRUD 구현](https://corini.tistory.com/entry/%EB%A6%AC%EC%95%A1%ED%8A%B8-%EC%8A%A4%ED%94%84%EB%A7%81%EB%B6%80%ED%8A%B8-%EC%97%B0%EB%8F%99%ED%95%98%EC%97%AC-CRUD-%EA%B5%AC%ED%98%84-1-%EA%B5%AC%EC%83%81-1n)
 * [React와 Node.js 활용 고객 관리 시스템 개발](https://www.youtube.com/watch?v=_yEH9mczm3g&list=PLRx0vPvlEmdD1pSqKZiTihy5rplxecNpz)
+* [프론트엔드의 이해](https://www.youtube.com/watch?v=gp5LeSxfD8Q&list=PL03rJBlpwTaA0ioaPahgWOSYzgPI4PWKR)
 
 ##### [목차로 이동](#목차)
