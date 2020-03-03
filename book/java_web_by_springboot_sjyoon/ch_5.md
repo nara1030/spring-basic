@@ -150,11 +150,52 @@ REST API를 클라이언트에게 제공하기 위해서는 클라이언트가 �
 	* 동시성 문제 처리를 위해 `java.util.concurrent.atomic` 패키지 추가(SINCE 자바1.5)
 		* AtomicLong을 사용하면 Long 타입 변수에 대해 thread-safe하게 처리 가능
 		* 만약 단순히 Long 타입으로 선언한다면 서로 다른 스레드에서 하나의 변수에 대해 값을 쓰거나 읽기 때문에 문제 발생
-	* 요청(해당 URL 호출)이 올 때마다 Todo 인스턴스 생성 후 id값을 증가시켜야 하므로 위와 같이 counter 선언(?)
-		* cf. static/Singleton
+	* 요청(해당 URL 호출)이 올 때마다 Todo 인스턴스 생성 후 id값을 증가시켜야 하므로 위와 같이 counter 선언
+		* 즉 내가 이해하기로는, 컨테이너가 Bean(BasicController)을 유일하게 생성/관리해주므로 그 멤버인 counter는 `static`일 필요 없음
+		* cf. static/Singleton([참고](https://github.com/nara1030/ThisIsJava/blob/master/docs/etc/static_vs_singleton.md))
 
 - - -
-추가로 AtomicLong 예제.
+```java
+import java.util.concurrent.atomic.AtomicLong;
+
+/*
+ * AtomicLong Class Example
+ */
+public class TestThread {
+    static class Counter {
+        private AtomicLong c = new AtomicLong(0);
+
+        public void increment() {
+            c.getAndIncrement();
+        }
+
+        public long value() {
+            return c.get();
+        }
+    }
+
+    public static void main(final String[] args) throws InterruptedException {
+        final Counter counter = new Counter();
+
+        // 1000 threads
+        for (int i = 0; i < 1000; i++) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    counter.increment();
+                }
+            }).start();
+        }
+        Thread.sleep(6000);
+        System.out.println("Final number (should be 1000): " + counter.value());
+    }
+}
+```
+
+익숙치 않은 코드라 공부할 필요가 있다.
+
+* Effective Java 2nd Edition. Item 22: [Favor static member class over nonstatic](https://whiteship.tistory.com/2605?category=56999)
+* 중첩 클래스의 네 종류와 특성
 
 ##### [목차로 이동](#목차)
 
