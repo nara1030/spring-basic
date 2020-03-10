@@ -100,6 +100,7 @@ REST API를 클라이언트에게 제공하기 위해서는 클라이언트가 �
 1. [REST 컨트롤러 활용](#REST-컨트롤러-활용)
 2. [REST API에서 HTTP Method 사용](#REST-API에서-HTTP-Method-사용)
 3. [스프링에서 URI 템플릿 활용](#스프링에서-URI-템플릿-활용)
+4. [우리는 왜 Restful API를 만드는 걸까?](#REST-클라이언트-개발)
 
 - - -
 #### 잘못된 REST 사용
@@ -232,7 +233,19 @@ public Todo getPath(@PathVariable int todoId) {
 ##### [목차로 이동](#목차)
 
 ## REST 클라이언트 개발
+최근 MSA가 유행하며 업무별로 API를 만들어 서로 API간 통신을 통해 데이터를 주고 받는 경우가 많다. 더해 REST API와 연동 시엔 HTTP 요청을 보내는 것뿐만 아니라 응답 JSON 데이터를 파싱하고 모델 객체와 매핑하는 것이 중요하다.
 
+* RestTemplate
+* UriComponentsBuilder
+
+- - -
+#### 우리는 왜 Restful API를 만드는 것일까? 
+
+가장 큰 이유는 Client Side를 정형화된 플랫폼이 아닌 모바일, PC 등 제약을 두지 않기 위해서다. 스마트 기기의 등장 등 Client 프로그램이 다양화되면서 그에 맞춰 Server Side를 일일이 만드는 것이 비효율적이 되었기 때문이다. 따라서 개발자들은 Client Side를 전혀 고려하지 않은 XML, JSON과 같은 데이터 통신(Client에서 바로 객체로 치환 가능)을 지향하게 되었고 Server와 Client의 역할을 분리하게 되었다.
+
+이런 상황에서 가장 중요해진 것은 HTTP 표준 규약을 지켜 API를 만드는 것이다. 그렇지 못한 가장 흔한 예는 HTTPStatus 코드를 제대로 응답하지 않은 것인데, 이런 경우 클라이언트에서 별도의 방어 코드를 짜넣는 수고가 발생하게 된다. 즉, 200뿐 아니라 401(권한없음)이나 500대 에러들(Server Side 발생)도 반환할 수 있어야 한다.
+
+참고: https://steemit.com/kr-dev/@igna84/spring-boot-responseentity
 
 ##### [목차로 이동](#목차)
 
