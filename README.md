@@ -42,7 +42,10 @@
 	* [bike5059님 정리](https://github.com/bike5059/Bizspring)
 * 챗봇
 	* [스프링 부트 기반 대화형 챗봇 - 권용근님](https://github.com/kingbbode/spring-boot-chatbot)
-	
+* 스프링 부트를 이용한 웹 서비스 개발
+	* [1강](https://www.youtube.com/watch?v=26GuwzdB3iI)
+	* [2강](https://www.youtube.com/watch?v=MCgvlTdZGBw)
+
 - - -
 스프링 이전 버전 자료들
 
